@@ -1,34 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbh3j7rocw54f"]
+[gd_scene load_steps=5 format=3 uid="uid://bbh3j7rocw54f"]
 
 [ext_resource type="PackedScene" uid="uid://cely711l01bmm" path="res://player.tscn" id="1_0f027"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_0f027"]
-size = Vector2(1000, 100)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
-size = Vector2(1000, 99)
+[ext_resource type="Script" uid="uid://dc3gllywmedyk" path="res://main_scene.gd" id="1_d5x1h"]
+[ext_resource type="Script" uid="uid://ccg0p6iku24re" path="res://game_over.gd" id="3_d5x1h"]
+[ext_resource type="Texture2D" uid="uid://bv6p2widvftts" path="res://calque.png" id="3_gyfs4"]
 
 [node name="main_scene" type="Node2D"]
-position = Vector2(567, 546)
+position = Vector2(491, 894)
+script = ExtResource("1_d5x1h")
+
+[node name="Calque" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(426, -360)
+texture = ExtResource("3_gyfs4")
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("3_d5x1h")
+
+[node name="Panel" type="Panel" parent="GameOver"]
+offset_left = 87.0
+offset_top = 150.0
+offset_right = 1795.0
+offset_bottom = 940.0
+
+[node name="Label" type="Label" parent="GameOver"]
+offset_left = 177.0
+offset_top = 189.0
+offset_right = 1697.0
+offset_bottom = 525.0
+theme_override_font_sizes/font_size = 80
+text = "Game over !
+
+What a noob ! "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Retry" type="Button" parent="GameOver"]
+offset_left = 776.0
+offset_top = 694.0
+offset_right = 1099.0
+offset_bottom = 809.0
+theme_override_font_sizes/font_size = 30
+text = "Play Again !"
 
 [node name="Player" parent="." instance=ExtResource("1_0f027")]
-position = Vector2(-21, -260)
 
-[node name="Platform" type="StaticBody2D" parent="."]
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform"]
-mesh = SubResource("QuadMesh_0f027")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_2c62f")
-
-[node name="Platform2" type="StaticBody2D" parent="."]
-position = Vector2(802, -123)
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform2"]
-mesh = SubResource("QuadMesh_0f027")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_2c62f")
+[connection signal="pressed" from="GameOver/Retry" to="GameOver" method="_on_retry_pressed"]
