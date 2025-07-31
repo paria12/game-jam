@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk3bh88ec5qsh"]
+
+[ext_resource type="Script" uid="uid://x7e7h2elcr72" path="res://platform.gd" id="1_mi635"]
+[ext_resource type="Texture2D" uid="uid://2vuuoj0h5trs" path="res://icon.svg" id="2_s8bxr"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_5ajho"]
+size = Vector2(1000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi635"]
+size = Vector2(1000, 99)
+
+[node name="Platform" type="StaticBody2D"]
+position = Vector2(500, -50)
+script = ExtResource("1_mi635")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = SubResource("QuadMesh_5ajho")
+texture = ExtResource("2_s8bxr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_mi635")
