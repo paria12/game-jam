@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://vli5r1t6n3ey"]
+
+[ext_resource type="Texture2D" uid="uid://moivnwsayk5s" path="res://ressources/calque_definitif.png" id="1_vmg6r"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_1s0jb"]
+size = Vector2(1836, 135)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cki6r"]
+size = Vector2(667, 135)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cr06n"]
+size = Vector2(945, 135)
+
+[node name="background_platform_with_hole" type="StaticBody2D"]
+
+[node name="platform2" type="MeshInstance2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(918, -68)
+mesh = SubResource("QuadMesh_1s0jb")
+
+[node name="Collision1" type="CollisionShape2D" parent="."]
+position = Vector2(333.5, -68)
+shape = SubResource("RectangleShape2D_cki6r")
+
+[node name="Collision2" type="CollisionShape2D" parent="."]
+position = Vector2(1363.5, -68)
+shape = SubResource("RectangleShape2D_cr06n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(918, -495)
+texture = ExtResource("1_vmg6r")

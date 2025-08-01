@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk3bh88ec5qsh"]
+
+[ext_resource type="Script" uid="uid://x7e7h2elcr72" path="res://scripts/platform.gd" id="1_uegqb"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_mi635"]
+size = Vector2(1836, 135)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi635"]
+size = Vector2(1836, 135)
+
+[node name="Platform" type="StaticBody2D"]
+show_behind_parent = true
+script = ExtResource("1_uegqb")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(918, -67.5)
+mesh = SubResource("QuadMesh_mi635")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(918, -67.5)
+shape = SubResource("RectangleShape2D_mi635")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2eki3lo5ves4"]
+
+[ext_resource type="PackedScene" uid="uid://c18m4yoftwo1t" path="res://scènes/hole.tscn" id="1_rajpw"]
+[ext_resource type="PackedScene" uid="uid://vli5r1t6n3ey" path="res://scènes/background_platform_with_hole.tscn" id="2_86qis"]
+
+[node name="background_platform_with_platform_hole" type="Node2D"]
+show_behind_parent = true
+
+[node name="Hole" parent="." instance=ExtResource("1_rajpw")]
+position = Vector2(667, 0)
+
+[node name="background_platform_with_hole" parent="." instance=ExtResource("2_86qis")]
+show_behind_parent = true

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dtfn7ih8pjllt"]
 
-[ext_resource type="Script" uid="uid://bbdx1ylc1lqv3" path="res://spiques.gd" id="1_phcm2"]
-[ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://kill_zone.tscn" id="2_efcn1"]
+[ext_resource type="Script" uid="uid://bbdx1ylc1lqv3" path="res://scripts/spiques.gd" id="1_ongw6"]
+[ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="2_es5v7"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_xc3wn"]
 size = Vector2(90, 90)
@@ -14,7 +14,7 @@ size = Vector2(96, 93)
 
 [node name="spiques" type="StaticBody2D"]
 position = Vector2(50, -50)
-script = ExtResource("1_phcm2")
+script = ExtResource("1_ongw6")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 mesh = SubResource("QuadMesh_xc3wn")
@@ -25,9 +25,10 @@ shape = SubResource("RectangleShape2D_jbd7x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="KillZone" parent="." instance=ExtResource("2_efcn1")]
+[node name="KillZone" parent="." instance=ExtResource("2_es5v7")]
 
 [node name="CollisionShape2D" parent="KillZone" index="0"]
+show_behind_parent = true
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_phcm2")
 

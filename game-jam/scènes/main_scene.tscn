@@ -1,22 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbh3j7rocw54f"]
+[gd_scene load_steps=4 format=3 uid="uid://bbh3j7rocw54f"]
 
-[ext_resource type="PackedScene" uid="uid://cely711l01bmm" path="res://player.tscn" id="1_0f027"]
-[ext_resource type="Script" uid="uid://dc3gllywmedyk" path="res://main_scene.gd" id="1_d5x1h"]
-[ext_resource type="Script" uid="uid://ccg0p6iku24re" path="res://game_over.gd" id="3_d5x1h"]
-[ext_resource type="Texture2D" uid="uid://bv6p2widvftts" path="res://calque.png" id="3_gyfs4"]
+[ext_resource type="Script" uid="uid://dc3gllywmedyk" path="res://scripts/main_scene.gd" id="1_lw4b2"]
+[ext_resource type="Script" uid="uid://ccg0p6iku24re" path="res://scripts/game_over.gd" id="2_eyxnp"]
+[ext_resource type="PackedScene" uid="uid://cely711l01bmm" path="res://scènes/player.tscn" id="3_ls2c7"]
 
 [node name="main_scene" type="Node2D"]
-position = Vector2(491, 894)
-script = ExtResource("1_d5x1h")
-
-[node name="Calque" type="Sprite2D" parent="."]
-show_behind_parent = true
-position = Vector2(426, -360)
-texture = ExtResource("3_gyfs4")
+position = Vector2(642, 802)
+script = ExtResource("1_lw4b2")
 
 [node name="GameOver" type="CanvasLayer" parent="."]
 process_mode = 3
-script = ExtResource("3_d5x1h")
+script = ExtResource("2_eyxnp")
 
 [node name="Panel" type="Panel" parent="GameOver"]
 offset_left = 87.0
@@ -42,6 +36,6 @@ offset_bottom = 809.0
 theme_override_font_sizes/font_size = 30
 text = "Play Again !"
 
-[node name="Player" parent="." instance=ExtResource("1_0f027")]
+[node name="Player" parent="." instance=ExtResource("3_ls2c7")]
 
 [connection signal="pressed" from="GameOver/Retry" to="GameOver" method="_on_retry_pressed"]

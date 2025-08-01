@@ -13,7 +13,7 @@ config_version=5
 config/name="game-jam"
 run/main_scene="uid://bbh3j7rocw54f"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://ressources/icon.svg"
 
 [display]
 

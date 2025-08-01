@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfiulnqtqsc65"]
+
+[ext_resource type="Script" uid="uid://sn3v63w85kpx" path="res://scripts/background_platform.gd" id="1_4yt2c"]
+[ext_resource type="PackedScene" uid="uid://dk3bh88ec5qsh" path="res://scènes/platform.tscn" id="2_hnluj"]
+[ext_resource type="Texture2D" uid="uid://moivnwsayk5s" path="res://ressources/calque_definitif.png" id="3_hvdcd"]
+
+[node name="background_platform" type="Node2D"]
+show_behind_parent = true
+script = ExtResource("1_4yt2c")
+
+[node name="Platform" parent="." instance=ExtResource("2_hnluj")]
+show_behind_parent = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(918, -494)
+texture = ExtResource("3_hvdcd")
