@@ -30,9 +30,7 @@ offset_top = 189.0
 offset_right = 1697.0
 offset_bottom = 525.0
 theme_override_font_sizes/font_size = 80
-text = "Game over !
-
-What a noob ! "
+text = "Game over !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
