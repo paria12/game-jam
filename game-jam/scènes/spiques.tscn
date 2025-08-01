@@ -7,7 +7,7 @@
 size = Vector2(90, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jbd7x"]
-size = Vector2(90, 91)
+size = Vector2(70, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phcm2"]
 size = Vector2(96, 93)
@@ -20,8 +20,8 @@ script = ExtResource("1_ongw6")
 mesh = SubResource("QuadMesh_xc3wn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_jbd7x")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 

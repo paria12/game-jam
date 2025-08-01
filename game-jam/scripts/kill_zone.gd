@@ -1,4 +1,7 @@
 extends Area2D
 
+@export var active = true;
+
 func _on_body_entered(body: Node2D) -> void:
-	body.die();
+	if(active):
+		body.die();
