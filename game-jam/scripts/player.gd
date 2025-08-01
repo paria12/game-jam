@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var long_jump_duration = 0.25
 @export var cayote_time:float = 0.5
 
-@onready var animation = $Sprite2D
+@onready var animation = $AnimatedSprite2D
 @onready var standing = $Standing
 @onready var crouching = $Crouching
 
@@ -31,11 +31,33 @@ func _ready() -> void:
 	divided_position = animation.position / 2
 
 func _physics_process(delta: float) -> void:
-	# faire un input buffer
 	if(self.position.y >= death_position.y):
 		die();
-	# cas dans lequel on utilise la position accroupi
+	
 	var horizontal_direction = Input.get_axis("move_left","move_right")
+	if(horizontal_direction == 1.0):
+		animation.flip_h = false;
+	elif(horizontal_direction == -1.0):
+		animation.flip_h = true
+		
+	if(is_on_floor()):
+		if(abs(velocity.x) >= 0.0 && abs(velocity.x) <= 0.5):
+			if(Input.is_action_pressed("crouch")):
+				animation.play("idle_crouch")
+			else:
+				animation.play("idle")
+		else:
+			if(Input.is_action_pressed("crouch")):
+				animation.play("crouch")
+			elif(Input.is_action_pressed("run")):
+				animation.play("run")
+			else:
+				animation.play("default")
+	else:
+		if(velocity.y < 0.0):
+			animation.play("jump")
+		else: 
+			animation.play("fall")
 	
 	if (Input.is_action_just_pressed("jump")):
 		stand()
@@ -58,14 +80,15 @@ func _physics_process(delta: float) -> void:
 	if (!is_on_floor()):
 		velocity.y += gravity
 		ground_timer += delta
+		stand();
 		if (Input.is_action_just_pressed("crouch")):
 			velocity.y += gravity * 11 
 	else:
 		# regarder sur youtube comment réaliser l'accroupissement
 		# regarder comment éviter qu'il reste accroupit lors du saut
-		if(Input.is_action_just_pressed("crouch")):
+		if(Input.is_action_pressed("crouch")):
 			crouch()
-		elif (Input.is_action_just_released("crouch")):
+		else:
 			stand()
 	if (!Input.is_action_just_pressed("crouch")):
 		if (!Input.is_action_pressed("run")):
@@ -75,22 +98,23 @@ func _physics_process(delta: float) -> void:
 	else :
 		velocity.x = (velocity.x +(speed * horizontal_direction)) / 2
 		
+	
 	move_and_slide()
 	
 func die():
 	get_node("../GameOver").game_over()
 
 func crouch():
-	speed = based_speed / 2
+	speed = based_speed / 2.0
 	standing.hide();
-	animation.scale = divided_scale;
-	animation.position = divided_position
+	standing.disabled = true;
+	crouching.disabled = false;
 	crouching.show()
 	
 func stand():
 	speed = based_speed
 	crouching.hide();
-	animation.scale = normal_scale;
-	animation.position = normal_position
+	crouching.disabled = true
+	standing.disabled = false;
 	standing.show();
 	
