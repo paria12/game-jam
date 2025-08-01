@@ -11,6 +11,9 @@ extends CharacterBody2D
 @onready var standing = $Standing
 @onready var crouching = $Crouching
 
+var shoes = preload("res://scènes/shoes.tscn")
+var shoes_available = 2
+var shoes_limit = 2
 var speed = based_speed
 var normal_scale = 0.0;
 var divided_scale = 0;
@@ -21,7 +24,7 @@ var jump_timer:float = 0.0
 var jump_velocity:float = 0.0
 var death_position = Vector2(0.0, 500.0)
 var is_crouching = false
-
+var last_direction = 1.0; 
 func _ready() -> void:
 	crouching.hide();
 	standing.show();
@@ -29,6 +32,10 @@ func _ready() -> void:
 	divided_scale = normal_scale / 2;
 	normal_position = animation.position
 	divided_position = animation.position / 2
+	
+func _input(_event: InputEvent) -> void:
+	if(Input.is_action_just_pressed("throw_shoes")):
+		throw_shoes()
 
 func _physics_process(delta: float) -> void:
 	if(self.position.y >= death_position.y):
@@ -37,8 +44,10 @@ func _physics_process(delta: float) -> void:
 	var horizontal_direction = Input.get_axis("move_left","move_right")
 	if(horizontal_direction == 1.0):
 		animation.flip_h = false;
+		last_direction = horizontal_direction
 	elif(horizontal_direction == -1.0):
 		animation.flip_h = true
+		last_direction = horizontal_direction
 		
 	if(is_on_floor()):
 		if(abs(velocity.x) >= 0.0 && abs(velocity.x) <= 0.5):
@@ -117,4 +126,18 @@ func stand():
 	crouching.disabled = true
 	standing.disabled = false;
 	standing.show();
-	
+
+func get_back_shoes(shoe_instance):
+	if(shoes_available < shoes_limit):
+		shoes_available += 1
+		shoe_instance.queue_free()
+
+func throw_shoes():
+	if(shoes_available > 0):
+		var shoe_instance = shoes.instantiate()
+		get_parent().add_child(shoe_instance)
+		shoe_instance.global_position = $Marker2D.global_position
+		shoe_instance.throw(last_direction, velocity)
+		shoes_available -= 1;
+	else:
+		print("You don't have any shoes !")
