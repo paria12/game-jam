@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcrq5rygtfk3y"]
+
+[ext_resource type="Script" uid="uid://cpjl2jflbfh67" path="res://scripts/arrow.gd" id="1_7pvpk"]
+[ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="2_5812b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_acd0x"]
+size = Vector2(100, 20)
+
+[sub_resource type="QuadMesh" id="QuadMesh_i4m3f"]
+size = Vector2(100, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ndhl"]
+size = Vector2(102, 22)
+
+[node name="arrow" type="RigidBody2D"]
+script = ExtResource("1_7pvpk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(50, -10)
+shape = SubResource("RectangleShape2D_acd0x")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+show_behind_parent = true
+position = Vector2(50, -10)
+mesh = SubResource("QuadMesh_i4m3f")
+
+[node name="KillZone" parent="." instance=ExtResource("2_5812b")]
+
+[node name="CollisionShape2D" parent="KillZone" index="0"]
+position = Vector2(50, -10)
+shape = SubResource("RectangleShape2D_2ndhl")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(90, -10)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+
+[editable path="KillZone"]

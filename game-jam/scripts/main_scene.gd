@@ -7,6 +7,8 @@ var background_platform = preload("res://scènes/background_platform.tscn")
 var background_platform_with_platform_hole = preload("res://scènes/background_platform_with_platform_hole.tscn")
 var spikes_platform = preload("res://scènes/spikes_platform.tscn")
 var pressure_spikes_platform = preload("res://scènes/pressure_spikes_platform.tscn")
+var arrow_platform = preload("res://scènes/platform_with_arrow.tscn")
+var rocher_platform = preload("res://scènes/platform_with_rocher.tscn")
 var xPos  = 0;
 var yPos = 0;
 
@@ -14,7 +16,8 @@ enum Platform_Type{
 	PLATFORM = 0,
 	SPIKES_PLATFORM = 1,
 	PRESSURE_SPIKES_PLATFORM = 2,
-	HOLE_PLATFORM = 3
+	HOLE_PLATFORM = 3,
+	ARROW_PLATFORM = 4
 }
 
 func _ready() -> void:
@@ -26,6 +29,7 @@ func _ready() -> void:
 	for i in range(number):
 		var random_value = randi_range(0,Platform_Type.size()-1)
 		match random_value:
+		#match 4:
 			Platform_Type.SPIKES_PLATFORM:
 				size = place_spikes_room(Vector2(xPos, yPos))
 				xPos += size.x
@@ -38,6 +42,27 @@ func _ready() -> void:
 			Platform_Type.HOLE_PLATFORM:
 				size = place_hole_platform(Vector2(xPos, yPos))
 				xPos += size.x
+			Platform_Type.ARROW_PLATFORM:
+				size = place_arrow_platform(Vector2(xPos, yPos))
+				xPos += size.x
+	size = place_rocher_room(Vector2(xPos, yPos))
+	xPos += size.x
+	
+func place_rocher_room(pos):
+	var instance = rocher_platform.instantiate();
+	var instance2 = platform.instantiate()
+	var size = instance2.get_size();
+	place_element(instance, pos.x, pos.y + size.y/2)
+	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
+	return size;
+
+func place_arrow_platform(pos):
+	var instance = arrow_platform.instantiate();
+	var instance2 = platform.instantiate()
+	var size = instance2.get_size();
+	place_element(instance, pos.x, pos.y + size.y/2)
+	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
+	return size;
 
 func place_hole_platform(pos):
 	var instance = background_platform_with_platform_hole.instantiate();
@@ -68,7 +93,6 @@ func place_room(pos):
 	var instance = background_platform.instantiate();
 	var instance2 = platform.instantiate()
 	var size = instance.get_size();
-	print(size)
 	place_element(instance, pos.x, pos.y + size.y/2)
 	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
 	return size;

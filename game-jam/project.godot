@@ -57,6 +57,7 @@ run={
 
 2d_physics/layer_2="player"
 2d_physics/layer_4="pressure_plate"
+2d_physics/layer_5="rock"
 
 [rendering]
 

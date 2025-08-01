@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://hoidkrvs2de1"]
+
+[ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="1_0r88r"]
+[ext_resource type="Script" uid="uid://3p6unxjd8ih0" path="res://scripts/rocher.gd" id="1_tuxqd"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_tuxqd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yv1la"]
+radius = 294.382
+
+[sub_resource type="SphereMesh" id="SphereMesh_0r88r"]
+
+[node name="rocher" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_tuxqd")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(-2.00001, -6.99996)
+scale = Vector2(678.769, 676)
+mesh = SubResource("SphereMesh_tuxqd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -11)
+shape = SubResource("CircleShape2D_yv1la")
+
+[node name="KillZone" parent="." instance=ExtResource("1_0r88r")]
+position = Vector2(1035, -1032)
+
+[node name="CollisionShape2D" parent="KillZone" index="0"]
+position = Vector2(-1038, 1026)
+one_way_collision_margin = 0.0
+
+[node name="StaticBody2D" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-118, 137)
+scale = Vector2(74.8345, 67.75)
+mesh = SubResource("SphereMesh_0r88r")
+
+[editable path="KillZone"]

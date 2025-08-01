@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd1eos4xf04wf"]
+
+[ext_resource type="PackedScene" uid="uid://bcrq5rygtfk3y" path="res://scènes/arrow.tscn" id="1_jsibt"]
+[ext_resource type="PackedScene" uid="uid://cfiulnqtqsc65" path="res://scènes/background_platform.tscn" id="2_7vsnu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jsibt"]
+size = Vector2(1552, 164)
+
+[node name="platform_with_arrow" type="Node2D"]
+show_behind_parent = true
+
+[node name="arrow" parent="." instance=ExtResource("1_jsibt")]
+position = Vector2(1713, -355)
+
+[node name="background_platform" parent="." instance=ExtResource("2_7vsnu")]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1010, -82)
+shape = SubResource("RectangleShape2D_jsibt")
+
+[connection signal="body_entered" from="Area2D" to="arrow" method="_on_area_2d_body_entered"]
