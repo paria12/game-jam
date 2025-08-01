@@ -15,6 +15,9 @@ trap = NodePath("../spiques")
 
 [node name="spiques" parent="." instance=ExtResource("3_mflpc")]
 modulate = Color(1, 1, 1, 0)
-position = Vector2(1304, -87)
+position = Vector2(1313, -181)
 
 [node name="background_platform" parent="." instance=ExtResource("4_2oima")]
+
+[editable path="spiques"]
+[editable path="spiques/KillZone"]

@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwgfas606hfh5"]
+
+[ext_resource type="Script" uid="uid://bd88b4i802nt" path="res://scripts/shoes.gd" id="1_m4txr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m4txr"]
+friction = 0.25
+bounce = 0.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_m4txr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puk0u"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evrdu"]
+size = Vector2(30, 30)
+
+[node name="Shoes" type="RigidBody2D"]
+position = Vector2(1, 0)
+collision_layer = 4
+collision_mask = 5
+mass = 0.7
+physics_material_override = SubResource("PhysicsMaterial_m4txr")
+center_of_mass_mode = 1
+center_of_mass = Vector2(-10, -10)
+script = ExtResource("1_m4txr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(9.53674e-07, -2.38419e-07)
+scale = Vector2(30.034, 30)
+mesh = SubResource("QuadMesh_m4txr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_puk0u")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_evrdu")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

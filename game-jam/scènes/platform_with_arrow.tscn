@@ -15,7 +15,7 @@ position = Vector2(1713, -355)
 [node name="background_platform" parent="." instance=ExtResource("2_7vsnu")]
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(1010, -82)

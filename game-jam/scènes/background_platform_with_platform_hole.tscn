@@ -8,6 +8,7 @@ show_behind_parent = true
 
 [node name="Hole" parent="." instance=ExtResource("1_rajpw")]
 position = Vector2(667, 0)
+collision_mask = 6
 
 [node name="background_platform_with_hole" parent="." instance=ExtResource("2_86qis")]
 show_behind_parent = true

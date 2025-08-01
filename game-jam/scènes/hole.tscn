@@ -27,7 +27,7 @@ scale = Vector2(0.746667, 1.14167)
 mesh = SubResource("QuadMesh_cki6r")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 6
 
 [node name="detector" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(112, -87)
