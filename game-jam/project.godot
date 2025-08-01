@@ -53,6 +53,11 @@ run={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_2="player"
+2d_physics/layer_4="pressure_plate"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
