@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtfn7ih8pjllt"]
+
+[ext_resource type="Script" uid="uid://8dv5gdc8si62" path="res://spiques.gd" id="1_phcm2"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_xc3wn"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbd7x"]
+size = Vector2(100, 100)
+
+[node name="spiques" type="StaticBody2D"]
+position = Vector2(50, -50)
+script = ExtResource("1_phcm2")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = SubResource("QuadMesh_xc3wn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jbd7x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
