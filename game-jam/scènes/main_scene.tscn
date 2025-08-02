@@ -14,10 +14,17 @@ process_mode = 3
 script = ExtResource("2_eyxnp")
 
 [node name="Panel" type="Panel" parent="GameOver"]
-offset_left = 87.0
-offset_top = 150.0
-offset_right = 1795.0
-offset_bottom = 940.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -854.0
+offset_top = -395.0
+offset_right = 854.0
+offset_bottom = 395.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="GameOver"]
 offset_left = 177.0
@@ -42,10 +49,17 @@ process_mode = 3
 script = ExtResource("4_eyxnp")
 
 [node name="Panel" type="Panel" parent="Victory"]
-offset_left = 87.0
-offset_top = 150.0
-offset_right = 1795.0
-offset_bottom = 940.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -854.0
+offset_top = -395.0
+offset_right = 854.0
+offset_bottom = 395.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="Victory"]
 offset_left = 177.0
@@ -66,10 +80,17 @@ theme_override_font_sizes/font_size = 30
 text = "Another Game ?"
 
 [node name="Sprite2D" parent="." instance=ExtResource("4_ls2c7")]
-offset_left = -641.0
-offset_top = -1210.0
-offset_right = 5759.0
-offset_bottom = 390.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3200.0
+offset_top = -800.0
+offset_right = 3200.0
+offset_bottom = 800.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="pressed" from="GameOver/Retry" to="GameOver" method="_on_retry_pressed"]
 [connection signal="pressed" from="Victory/Retry" to="Victory" method="_on_retry_pressed"]
