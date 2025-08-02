@@ -11,4 +11,5 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	body.has_touched_rock_room = true;
 	activated = true;

@@ -98,6 +98,7 @@ height = 108.0
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(273, -5)
 collision_layer = 2
+collision_mask = 33
 script = ExtResource("1_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

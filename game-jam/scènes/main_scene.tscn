@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dc3gllywmedyk" path="res://scripts/main_scene.gd" id="1_lw4b2"]
 [ext_resource type="Script" uid="uid://ccg0p6iku24re" path="res://scripts/game_over.gd" id="2_eyxnp"]
-[ext_resource type="PackedScene" uid="uid://cely711l01bmm" path="res://scènes/player.tscn" id="3_ls2c7"]
+[ext_resource type="Script" uid="uid://bvtkneg1ctdb6" path="res://scènes/victory.gd" id="4_eyxnp"]
 
 [node name="main_scene" type="Node2D"]
 position = Vector2(642, 802)
@@ -36,6 +36,33 @@ offset_bottom = 809.0
 theme_override_font_sizes/font_size = 30
 text = "Play Again !"
 
-[node name="Player" parent="." instance=ExtResource("3_ls2c7")]
+[node name="Victory" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("4_eyxnp")
+
+[node name="Panel" type="Panel" parent="Victory"]
+offset_left = 87.0
+offset_top = 150.0
+offset_right = 1795.0
+offset_bottom = 940.0
+
+[node name="Label" type="Label" parent="Victory"]
+offset_left = 177.0
+offset_top = 189.0
+offset_right = 1697.0
+offset_bottom = 525.0
+theme_override_font_sizes/font_size = 80
+text = "You won ! GG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Retry" type="Button" parent="Victory"]
+offset_left = 776.0
+offset_top = 694.0
+offset_right = 1099.0
+offset_bottom = 809.0
+theme_override_font_sizes/font_size = 30
+text = "Another Game ?"
 
 [connection signal="pressed" from="GameOver/Retry" to="GameOver" method="_on_retry_pressed"]
+[connection signal="pressed" from="Victory/Retry" to="Victory" method="_on_retry_pressed"]

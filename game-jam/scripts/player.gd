@@ -25,6 +25,8 @@ var jump_velocity:float = 0.0
 var death_position = Vector2(0.0, 500.0)
 var is_crouching = false
 var last_direction = 1.0; 
+var has_touched_rock_room = false;
+
 func _ready() -> void:
 	crouching.hide();
 	standing.show();
@@ -112,6 +114,10 @@ func _physics_process(delta: float) -> void:
 	
 func die():
 	get_node("../GameOver").game_over()
+	
+func win():
+	if(has_touched_rock_room):
+		get_node("../Victory").victory()
 
 func crouch():
 	speed = based_speed / 2.0
