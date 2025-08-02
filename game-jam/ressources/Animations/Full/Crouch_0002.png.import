@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dneehpi7nstwk"
-path="res://.godot/imported/Walk_0003.png-8bb541a20822018618a9ea910d2cb36a.ctex"
+uid="uid://d1x2hsh7bm63c"
+path="res://.godot/imported/Crouch_0002.png-90285fcbcb25527d9c5811590b8617c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/Wireframes/Wireframes/Walk_0003.png"
-dest_files=["res://.godot/imported/Walk_0003.png-8bb541a20822018618a9ea910d2cb36a.ctex"]
+source_file="res://ressources/Animations/Full/Crouch_0002.png"
+dest_files=["res://.godot/imported/Crouch_0002.png-90285fcbcb25527d9c5811590b8617c8.ctex"]
 
 [params]
 

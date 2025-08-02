@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdnop0c6fpr01"
-path="res://.godot/imported/Crouch_0001.png-ace3fc7392922cb706bd2bf3dfa233b2.ctex"
+uid="uid://bv3en3osekmhb"
+path="res://.godot/imported/Jump_0001.png-8928a074dbe4f88457fa19e241f292c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/Wireframes/Wireframes/Crouch_0001.png"
-dest_files=["res://.godot/imported/Crouch_0001.png-ace3fc7392922cb706bd2bf3dfa233b2.ctex"]
+source_file="res://ressources/Animations/Full/Jump_0001.png"
+dest_files=["res://.godot/imported/Jump_0001.png-8928a074dbe4f88457fa19e241f292c7.ctex"]
 
 [params]
 

@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var running_coef = 2.0
 @export var long_jump_duration = 0.25
 @export var cayote_time:float = 0.5
+@export var shoes_limit = 3
+
 
 @onready var animation = $AnimatedSprite2D
 @onready var standing = $Standing
@@ -13,7 +15,6 @@ extends CharacterBody2D
 
 var shoes = preload("res://scènes/shoes.tscn")
 var shoes_available = 2
-var shoes_limit = 2
 var speed = based_speed
 var normal_scale = 0.0;
 var divided_scale = 0;
@@ -26,6 +27,7 @@ var death_position = Vector2(0.0, 500.0)
 var is_crouching = false
 var last_direction = 1.0; 
 var has_touched_rock_room = false;
+var shoes_prefix = "S0_"
 
 func _ready() -> void:
 	crouching.hide();
@@ -50,25 +52,34 @@ func _physics_process(delta: float) -> void:
 	elif(horizontal_direction == -1.0):
 		animation.flip_h = true
 		last_direction = horizontal_direction
-		
+	
+	
+	
+	#if(shoes_available >= 2):
+	#	shoes_prefix = "S2_"
+	#elif(shoes_available == 1):
+	#	shoes_prefix = "S1_"
+	#else:
+	#	shoes_prefix = "S0_"
+	
 	if(is_on_floor()):
 		if(abs(velocity.x) >= 0.0 && abs(velocity.x) <= 0.5):
 			if(Input.is_action_pressed("crouch")):
-				animation.play("idle_crouch")
+				animation.play(shoes_prefix+"idle_crouch")
 			else:
-				animation.play("idle")
+				animation.play(shoes_prefix+"idle")
 		else:
 			if(Input.is_action_pressed("crouch")):
-				animation.play("crouch")
+				animation.play(shoes_prefix+"crouch")
 			elif(Input.is_action_pressed("run")):
-				animation.play("run")
+				animation.play(shoes_prefix+"run")
 			else:
-				animation.play("default")
+				animation.play(shoes_prefix+"default")
 	else:
 		if(velocity.y < 0.0):
-			animation.play("jump")
+			animation.play(shoes_prefix+"jump")
 		else: 
-			animation.play("fall")
+			animation.play(shoes_prefix+"fall")
 	
 	if (Input.is_action_just_pressed("jump")):
 		stand()
