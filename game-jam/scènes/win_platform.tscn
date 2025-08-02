@@ -1,23 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1psiac7a53dd"]
+[gd_scene load_steps=5 format=3 uid="uid://d1psiac7a53dd"]
 
 [ext_resource type="Script" uid="uid://cc7hpnh42olkp" path="res://scripts/win_platform.gd" id="1_mss3k"]
-[ext_resource type="PackedScene" uid="uid://cfiulnqtqsc65" path="res://scènes/background_platform.tscn" id="2_qeqk4"]
+[ext_resource type="PackedScene" uid="uid://b3ujv8kk4agxd" path="res://scènes/background_victory_platform.tscn" id="2_mss3k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oji1x"]
-size = Vector2(198, 725)
+size = Vector2(518, 725)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mss3k"]
+size = Vector2(183, 992)
 
 [node name="win_platform" type="Node2D"]
 show_behind_parent = true
 script = ExtResource("1_mss3k")
 
-[node name="background_platform" parent="." instance=ExtResource("2_qeqk4")]
+[node name="background_victory_platform" parent="." instance=ExtResource("2_mss3k")]
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 64
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(102, -499.5)
+position = Vector2(262, -499.5)
 shape = SubResource("RectangleShape2D_oji1x")
+
+[node name="Area2D2" type="StaticBody2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(97, -501)
+shape = SubResource("RectangleShape2D_mss3k")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

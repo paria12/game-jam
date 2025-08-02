@@ -12,7 +12,7 @@ bounce = 0.5
 size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evrdu"]
-size = Vector2(30, 30)
+size = Vector2(36, 36)
 
 [node name="Shoes" type="RigidBody2D"]
 position = Vector2(1, 0)

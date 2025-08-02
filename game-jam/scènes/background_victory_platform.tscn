@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3ujv8kk4agxd"]
+
+[ext_resource type="PackedScene" uid="uid://dk3bh88ec5qsh" path="res://scènes/platform.tscn" id="1_nu80g"]
+[ext_resource type="Texture2D" uid="uid://o5vxf1cagyx0" path="res://ressources/Exit.png" id="2_jf21q"]
+
+[node name="background_victory_platform" type="Node2D"]
+
+[node name="Platform" parent="." instance=ExtResource("1_nu80g")]
+show_behind_parent = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(918, -494)
+texture = ExtResource("2_jf21q")

@@ -23,6 +23,7 @@ func _physics_process(delta: float) -> void:
 		if(speed < target_speed):
 			speed += current_increment
 		velocity.x = -speed
+		$Sprite2D.rotation_degrees -= speed/250;
 		move_and_slide()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

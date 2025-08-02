@@ -56,12 +56,12 @@ func _physics_process(delta: float) -> void:
 	
 	
 	
-	#if(shoes_available >= 2):
-	#	shoes_prefix = "S2_"
-	#elif(shoes_available == 1):
-	#	shoes_prefix = "S1_"
-	#else:
-	#	shoes_prefix = "S0_"
+	if(shoes_available >= 2):
+		shoes_prefix = "S2_"
+	elif(shoes_available == 1):
+		shoes_prefix = "S1_"
+	else:
+		shoes_prefix = "S0_"
 	
 	if(is_on_floor()):
 		if(abs(velocity.x) >= 0.0 && abs(velocity.x) <= 0.5):
