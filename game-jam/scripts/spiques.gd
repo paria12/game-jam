@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+var has_been_played = false;
+
 func _ready():
 	inactive();
 	
@@ -10,6 +12,9 @@ func inactive():
 	$KillZone.destroy_shoes = true;
 	
 func activate():
+	if(!has_been_played):
+		$spiques_sound.play();
+		has_been_played = true
 	$CollisionShape2D.set_deferred("disabled", false)
 	self.visible = true
 	$KillZone.activate();

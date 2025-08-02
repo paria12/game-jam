@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cely711l01bmm"]
+[gd_scene load_steps=41 format=3 uid="uid://cely711l01bmm"]
 
 [ext_resource type="Script" uid="uid://cioca66e5eyev" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://b3rrkfkwjbray" path="res://ressources/Animations/Full/Crouch_0001.png" id="2_tq5ee"]
@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://buk5jsl5hw6mg" path="res://ressources/Animation_Shoes/idle_baseS2.png" id="31_0d0nr"]
 [ext_resource type="Texture2D" uid="uid://cdycg0f22hn1o" path="res://ressources/Animation_Shoes/S1/RunS2_0000.png" id="31_cmo3l"]
 [ext_resource type="Texture2D" uid="uid://vjehk1diuo5l" path="res://ressources/Animation_Shoes/S1/RunS2_0001.png" id="32_neffy"]
+[ext_resource type="AudioStream" uid="uid://nswar5edkfhj" path="res://ressources/Sounds/ambient.wav" id="36_0d0nr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ou4hl"]
 animations = [{
@@ -299,3 +300,8 @@ shape = SubResource("CapsuleShape2D_i3pqv")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(24, -171)
+
+[node name="ambiance" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("36_0d0nr")
+volume_db = -10.0
+bus = &"reverb"

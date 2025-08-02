@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c18m4yoftwo1t"]
+[gd_scene load_steps=9 format=3 uid="uid://c18m4yoftwo1t"]
 
 [ext_resource type="Script" uid="uid://c7kkwll31g4sl" path="res://scripts/hole.gd" id="1_ln22a"]
 [ext_resource type="Texture2D" uid="uid://dpl3vo3detv1h" path="res://ressources/Breaking_platform.png" id="2_v4gv2"]
 [ext_resource type="Texture2D" uid="uid://c2vu7fm4jyuq2" path="res://ressources/hole.png" id="3_dytr0"]
+[ext_resource type="AudioStream" uid="uid://betn31g3envxp" path="res://ressources/Sounds/cracking stone.wav" id="4_2hxwt"]
+[ext_resource type="AudioStream" uid="uid://6ota8gckvndw" path="res://ressources/Sounds/rock_break_single.wav" id="5_63ih3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1s0jb"]
 size = Vector2(220, 136)
@@ -48,5 +50,12 @@ show_behind_parent = true
 position = Vector2(110, -68.5)
 scale = Vector2(0.956522, 1)
 texture = ExtResource("3_dytr0")
+
+[node name="cracking" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2hxwt")
+bus = &"reverb"
+
+[node name="destroy" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_63ih3")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

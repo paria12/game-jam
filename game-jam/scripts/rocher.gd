@@ -29,11 +29,11 @@ func _physics_process(delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	body.has_touched_rock_room = true;
 	body.camera_shake();
+	$rolling_sound.play();
 	activated = true;
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	on_screen = true;
-
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	on_screen = false;

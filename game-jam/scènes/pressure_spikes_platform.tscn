@@ -10,11 +10,11 @@ show_behind_parent = true
 script = ExtResource("1_e51d0")
 
 [node name="pressure_plate" parent="." node_paths=PackedStringArray("trap") instance=ExtResource("2_0w8uv")]
-position = Vector2(909, -136)
+position = Vector2(912, -130)
 trap = NodePath("../spiques")
 
 [node name="spiques" parent="." instance=ExtResource("3_mflpc")]
-position = Vector2(1168, -176)
+position = Vector2(1182, -178)
 
 [node name="background_platform" parent="." instance=ExtResource("4_2oima")]
 

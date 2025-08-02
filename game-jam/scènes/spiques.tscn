@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtfn7ih8pjllt"]
+[gd_scene load_steps=7 format=3 uid="uid://dtfn7ih8pjllt"]
 
 [ext_resource type="Script" uid="uid://bbdx1ylc1lqv3" path="res://scripts/spiques.gd" id="1_ongw6"]
 [ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="2_es5v7"]
 [ext_resource type="Texture2D" uid="uid://cvo8yfux56agg" path="res://ressources/Spirke.png" id="2_h4hrm"]
+[ext_resource type="AudioStream" uid="uid://dwjbp3k8m4ryd" path="res://ressources/Sounds/spiques.mp3" id="4_h4hrm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_es5v7"]
 size = Vector2(168, 79)
@@ -30,5 +31,10 @@ texture = ExtResource("2_h4hrm")
 modulate = Color(0, 0.576471, 0.576471, 1)
 position = Vector2(33, -27)
 shape = SubResource("RectangleShape2D_phcm2")
+
+[node name="spiques_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_h4hrm")
+volume_db = 20.0
+bus = &"reverb"
 
 [editable path="KillZone"]

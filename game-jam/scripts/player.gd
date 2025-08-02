@@ -37,6 +37,7 @@ func _ready() -> void:
 	divided_scale = normal_scale / 2;
 	normal_position = animation.position
 	divided_position = animation.position / 2
+	$ambiance.play();
 	
 func _input(_event: InputEvent) -> void:
 	if(Input.is_action_just_pressed("throw_shoes")):

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://hoidkrvs2de1"]
+[gd_scene load_steps=6 format=3 uid="uid://hoidkrvs2de1"]
 
 [ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="1_0r88r"]
 [ext_resource type="Script" uid="uid://3p6unxjd8ih0" path="res://scripts/rocher.gd" id="1_tuxqd"]
 [ext_resource type="Texture2D" uid="uid://bpvyenoe2axp8" path="res://ressources/Rock.png" id="2_yv1la"]
+[ext_resource type="AudioStream" uid="uid://ctta7uf608xpg" path="res://ressources/Sounds/rock_roll_low.wav" id="4_rhrxl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yv1la"]
 radius = 294.382
@@ -32,6 +33,11 @@ show_behind_parent = true
 position = Vector2(-2, -1)
 scale = Vector2(0.813333, 0.791667)
 texture = ExtResource("2_yv1la")
+
+[node name="rolling_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_rhrxl")
+volume_db = -5.0
+bus = &"Rock_rolling"
 
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
