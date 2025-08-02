@@ -7,7 +7,10 @@ extends CharacterBody2D
 @export var long_jump_duration = 0.25
 @export var cayote_time:float = 0.5
 @export var shoes_limit = 3
-
+@export var walk_sounds_frames = [1, 3]
+@export var run_sounds_frames = [0, 1]
+@export var crouch_sounds_frames = [0, 1]
+@export var pitch_range = 0.3
 
 @onready var animation = $AnimatedSprite2D
 @onready var standing = $Standing
@@ -30,6 +33,21 @@ var last_direction = 1.0;
 var has_touched_rock_room = false;
 var shoes_prefix = "S0_"
 
+var walks_sounds = ["walk1", "walk2"]
+var last_walked_played_frame = -1; 
+var walk_animations = ["S0_default", "S1_default", "S2_default"]
+var walk_index = 0;
+
+var runs_sounds = ["run1", "run2"]
+var last_run_played_frame = -1;
+var run_index = 0;
+var run_animations = ["S0_run", "S1_run", "S2_run"]
+
+var crouch_sounds = ["crouch1", "crouch2"]
+var last_crouch_played_frame = -1;
+var crouch_index = 0;
+var crouch_animations = ["S0_crouch", "S1_crouch", "S2_crouch"]
+
 func _ready() -> void:
 	crouching.hide();
 	standing.show();
@@ -44,18 +62,37 @@ func _input(_event: InputEvent) -> void:
 		throw_shoes()
 
 func _physics_process(delta: float) -> void:
+	
 	if(self.position.y >= death_position.y):
 		die();
 	
 	var horizontal_direction = Input.get_axis("move_left","move_right")
+	
 	if(horizontal_direction == 1.0):
 		animation.flip_h = false;
 		last_direction = horizontal_direction
 	elif(horizontal_direction == -1.0):
 		animation.flip_h = true
 		last_direction = horizontal_direction
+
+	var returned_walk_played_frame = play_steps_sound(walk_animations, walk_sounds_frames, walks_sounds, walk_index, last_walked_played_frame);	
 	
+	if(returned_walk_played_frame[0] != -1):
+		last_walked_played_frame = returned_walk_played_frame[0]
+				
+	walk_index = returned_walk_played_frame[1]	
 	
+	var returned_run_played_frame = play_steps_sound(run_animations, run_sounds_frames, runs_sounds, run_index, last_run_played_frame);
+	if(returned_run_played_frame[0] != -1):
+		last_run_played_frame = returned_run_played_frame[0]
+				
+	run_index = returned_run_played_frame[1]
+	
+	var returned_crouch_played_frame = play_steps_sound(crouch_animations, crouch_sounds_frames, crouch_sounds, crouch_index, last_crouch_played_frame);
+	if(returned_crouch_played_frame[0] != -1):
+		last_crouch_played_frame = returned_crouch_played_frame[0]
+				
+	crouch_index = returned_crouch_played_frame[1]
 	
 	if(shoes_available >= 2):
 		shoes_prefix = "S2_"
@@ -124,6 +161,22 @@ func _physics_process(delta: float) -> void:
 		
 	
 	move_and_slide()
+
+func play_steps_sound(animations, sounds_frames, sounds, index, last_played_frame):
+	var new_frame = -1;
+	var new_index = index;
+	if(animations.has($AnimatedSprite2D.get_animation())):
+		if($AnimatedSprite2D.frame != last_played_frame && sounds_frames.has($AnimatedSprite2D.frame)):
+			var current_sound = get_node(sounds[index]);
+			current_sound.pitch_scale = 1 - pitch_range + randi_range(0,pitch_range * 2)
+			current_sound.play();
+			if(index < sounds.size()-1):
+				new_index += 1
+			else : 
+				new_index = 0
+			new_frame = $AnimatedSprite2D.frame
+	return [new_frame, new_index];
+
 	
 func die():
 	get_node("../GameOver").game_over()
