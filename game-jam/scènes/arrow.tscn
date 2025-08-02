@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcrq5rygtfk3y"]
+[gd_scene load_steps=7 format=3 uid="uid://bcrq5rygtfk3y"]
 
 [ext_resource type="Script" uid="uid://cpjl2jflbfh67" path="res://scripts/arrow.gd" id="1_7pvpk"]
 [ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="2_5812b"]
 [ext_resource type="Texture2D" uid="uid://cjgkrtno6wis8" path="res://ressources/Arrow.png" id="3_5812b"]
+[ext_resource type="AudioStream" uid="uid://dreglaax5yalw" path="res://ressources/Sounds/arrow.mp3" id="4_o6nqj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_acd0x"]
 size = Vector2(71, 6)
@@ -23,7 +24,6 @@ shape = SubResource("RectangleShape2D_acd0x")
 [node name="CollisionShape2D" parent="KillZone" index="0"]
 position = Vector2(16.5, -11)
 rotation = 0.698132
-scale = Vector2(1, 1)
 shape = SubResource("ConvexPolygonShape2D_o6nqj")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -34,6 +34,9 @@ show_behind_parent = true
 position = Vector2(50, -12)
 scale = Vector2(0.582873, 0.589286)
 texture = ExtResource("3_5812b")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_o6nqj")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 
