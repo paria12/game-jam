@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b70615m7kdwvk"]
+
+[ext_resource type="Texture2D" uid="uid://pstlwb8gish0" path="res://ressources/skybox.png" id="1_quuea"]
+
+[node name="Sprite2D" type="TextureRect"]
+show_behind_parent = true
+offset_left = 0.999878
+offset_top = -22.0
+offset_right = 640001.0
+offset_bottom = 1578.0
+texture = ExtResource("1_quuea")
+stretch_mode = 1

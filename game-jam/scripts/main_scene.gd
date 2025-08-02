@@ -33,7 +33,7 @@ func _ready() -> void:
 	for i in range(5):
 		var random_value = randi_range(0,Platform_Type.size()-1)
 		#match random_value:
-		match 2:
+		match 0:
 			Platform_Type.SPIKES_PLATFORM:
 				size = place_spikes_room(Vector2(xPos, yPos))
 				xPos += size.x
@@ -52,6 +52,7 @@ func _ready() -> void:
 	size = place_rocher_room(Vector2(xPos, yPos))
 	xPos += size.x
 	instance_player.get_node("Camera2D").limit_right = xPos + instance_player.get_node("Camera2D").limit_left -100
+	get_node("Sprite2D").size.x = xPos + 700
 	
 func place_victory_room(pos):
 	var instance = victory_platform.instantiate();
