@@ -11,6 +11,7 @@ radius = 294.382
 [sub_resource type="SphereMesh" id="SphereMesh_0r88r"]
 
 [node name="rocher" type="CharacterBody2D"]
+position = Vector2(4, -2)
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_tuxqd")
@@ -36,5 +37,11 @@ modulate = Color(0, 0, 0, 1)
 position = Vector2(-118, 137)
 scale = Vector2(74.8345, 67.75)
 mesh = SubResource("SphereMesh_0r88r")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-342, 2)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 
 [editable path="KillZone"]

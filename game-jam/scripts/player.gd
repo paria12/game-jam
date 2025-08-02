@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var animation = $AnimatedSprite2D
 @onready var standing = $Standing
 @onready var crouching = $Crouching
+@onready var camera = $Camera2D
 
 var shoes = preload("res://scènes/shoes.tscn")
 var shoes_available = 2
@@ -158,3 +159,6 @@ func throw_shoes():
 		shoes_available -= 1;
 	else:
 		print("You don't have any shoes !")
+
+func camera_shake():
+	camera.one_shot = true;

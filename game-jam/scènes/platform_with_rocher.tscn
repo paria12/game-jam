@@ -13,7 +13,7 @@ size = Vector2(146.5, 755.5)
 show_behind_parent = true
 
 [node name="rocher" parent="." instance=ExtResource("1_7wcs8")]
-position = Vector2(2066, -485)
+position = Vector2(2154, -477)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(4, 0)

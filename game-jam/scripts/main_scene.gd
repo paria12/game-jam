@@ -30,10 +30,10 @@ func _ready() -> void:
 	var size = place_victory_room(Vector2(xPos, yPos))
 	xPos += size.x
 	var number = randi_range(0,5)
-	for i in range(number):
+	for i in range(5):
 		var random_value = randi_range(0,Platform_Type.size()-1)
-		#match random_value:
-		match 1:
+		match random_value:
+		#match 0:
 			Platform_Type.SPIKES_PLATFORM:
 				size = place_spikes_room(Vector2(xPos, yPos))
 				xPos += size.x

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1psiac7a53dd"]
 
-[ext_resource type="Script" uid="uid://cc7hpnh42olkp" path="res://win_platform.gd" id="1_mss3k"]
+[ext_resource type="Script" uid="uid://cc7hpnh42olkp" path="res://scripts/win_platform.gd" id="1_mss3k"]
 [ext_resource type="PackedScene" uid="uid://cfiulnqtqsc65" path="res://scènes/background_platform.tscn" id="2_qeqk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oji1x"]
