@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://c18m4yoftwo1t"]
+[gd_scene load_steps=7 format=3 uid="uid://c18m4yoftwo1t"]
 
 [ext_resource type="Script" uid="uid://c7kkwll31g4sl" path="res://scripts/hole.gd" id="1_ln22a"]
+[ext_resource type="Texture2D" uid="uid://dpl3vo3detv1h" path="res://ressources/Breaking_platform.png" id="2_v4gv2"]
+[ext_resource type="Texture2D" uid="uid://c2vu7fm4jyuq2" path="res://ressources/hole.png" id="3_dytr0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1s0jb"]
-size = Vector2(224, 136)
+size = Vector2(220, 136)
 
 [sub_resource type="QuadMesh" id="QuadMesh_cki6r"]
 size = Vector2(300, 120)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oqe1w"]
-size = Vector2(224, 172)
+size = Vector2(220, 172)
 
 [node name="Hole" type="StaticBody2D"]
 collision_mask = 2
@@ -17,20 +19,34 @@ script = ExtResource("1_ln22a")
 
 [node name="destroyable_platform" type="CollisionShape2D" parent="."]
 visibility_layer = 2
-position = Vector2(112, -68)
+position = Vector2(110, -68)
 shape = SubResource("RectangleShape2D_1s0jb")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 modulate = Color(1, 1, 1, 0)
-position = Vector2(112, -68)
-scale = Vector2(0.746667, 1.14167)
+position = Vector2(110, -68)
+scale = Vector2(0.733334, 1.14167)
 mesh = SubResource("QuadMesh_cki6r")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 6
 
 [node name="detector" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(112, -87)
+position = Vector2(110, -86)
 shape = SubResource("RectangleShape2D_oqe1w")
+
+[node name="breaking_platform" type="Sprite2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2(110, -68.25)
+scale = Vector2(0.956522, 1.0037)
+texture = ExtResource("2_v4gv2")
+
+[node name="hole" type="Sprite2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2(110, -68.5)
+scale = Vector2(0.956522, 1)
+texture = ExtResource("3_dytr0")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

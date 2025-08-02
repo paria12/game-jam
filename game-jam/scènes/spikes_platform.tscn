@@ -5,14 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://cfiulnqtqsc65" path="res://scènes/background_platform.tscn" id="3_3ooa0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vi4t"]
-size = Vector2(1552, 164)
+size = Vector2(1565, 164)
 
 [node name="spikes_platform" type="Node2D"]
 show_behind_parent = true
 script = ExtResource("1_6vi4t")
 
 [node name="spiques" parent="." instance=ExtResource("2_wduf7")]
-position = Vector2(1238, -184)
+position = Vector2(1199, -179)
 
 [node name="background_platform" parent="." instance=ExtResource("3_3ooa0")]
 
@@ -20,16 +20,16 @@ position = Vector2(1238, -184)
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1010, -82)
+position = Vector2(1005, -82)
 shape = SubResource("RectangleShape2D_6vi4t")
 
 [node name="spiques2" parent="." instance=ExtResource("2_wduf7")]
-position = Vector2(772, -184)
+position = Vector2(746, -179)
 
 [node name="spiques3" parent="." instance=ExtResource("2_wduf7")]
-position = Vector2(1680, -184)
+position = Vector2(1662, -180)
 
 [node name="spiques4" parent="." instance=ExtResource("2_wduf7")]
-position = Vector2(318, -181)
+position = Vector2(289, -179)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

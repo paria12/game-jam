@@ -6,9 +6,15 @@
 [node name="background_platform_with_platform_hole" type="Node2D"]
 show_behind_parent = true
 
+[node name="Hole3" parent="." instance=ExtResource("1_rajpw")]
+position = Vector2(1354, 0)
+
 [node name="Hole" parent="." instance=ExtResource("1_rajpw")]
-position = Vector2(667, 0)
+position = Vector2(435, 0)
 collision_mask = 6
 
 [node name="background_platform_with_hole" parent="." instance=ExtResource("2_86qis")]
 show_behind_parent = true
+
+[node name="Hole2" parent="." instance=ExtResource("1_rajpw")]
+position = Vector2(894, 0)

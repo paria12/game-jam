@@ -12,7 +12,6 @@ func kill_destroy(body:Node2D):
 func activate():
 	active = true;
 	for body in get_overlapping_bodies():
-		print(body)
 		kill_destroy(body)
 
 func inactive():
