@@ -33,7 +33,7 @@ func _ready() -> void:
 	for i in range(number):
 		var random_value = randi_range(0,Platform_Type.size()-1)
 		match random_value:
-		#match 4:
+		#match 1:
 			Platform_Type.SPIKES_PLATFORM:
 				size = place_spikes_room(Vector2(xPos, yPos))
 				xPos += size.x
