@@ -27,20 +27,34 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="GameOver"]
-offset_left = 177.0
-offset_top = 189.0
-offset_right = 1697.0
-offset_bottom = 525.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -744.0
+offset_top = -364.0
+offset_right = 776.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 80
 text = "Game over !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Retry" type="Button" parent="GameOver"]
-offset_left = 776.0
-offset_top = 694.0
-offset_right = 1099.0
-offset_bottom = 809.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = 141.0
+offset_right = 168.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "Play Again !"
 
@@ -62,20 +76,34 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="Victory"]
-offset_left = 177.0
-offset_top = 189.0
-offset_right = 1697.0
-offset_bottom = 525.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -364.0
+offset_right = 770.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 80
 text = "You won ! GG"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Retry" type="Button" parent="Victory"]
-offset_left = 776.0
-offset_top = 694.0
-offset_right = 1099.0
-offset_bottom = 809.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_top = 141.0
+offset_right = 160.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "Another Game ?"
 
@@ -85,10 +113,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -3200.0
-offset_top = -800.0
-offset_right = 3200.0
-offset_bottom = 800.0
+offset_left = -644.0
+offset_top = -1250.0
+offset_right = 5756.0
+offset_bottom = 350.0
 grow_horizontal = 2
 grow_vertical = 2
 
