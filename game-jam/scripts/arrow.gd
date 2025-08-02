@@ -8,7 +8,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	
 func activate(_body):
 	if(self):
-		linear_velocity.x = -1000
+		linear_velocity.x = -1500
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()

@@ -111,7 +111,11 @@ position = Vector2(23, -132)
 shape = SubResource("CapsuleShape2D_hqtel")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -181)
+position = Vector2(16, -346)
+zoom = Vector2(0.7, 0.7)
+limit_left = 700
+limit_top = -400
+limit_bottom = -400
 
 [node name="Calque" type="Sprite2D" parent="."]
 visible = false

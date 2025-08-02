@@ -10,7 +10,7 @@ size = Vector2(1552, 164)
 show_behind_parent = true
 
 [node name="arrow" parent="." instance=ExtResource("1_jsibt")]
-position = Vector2(1713, -355)
+position = Vector2(1906, -367)
 
 [node name="background_platform" parent="." instance=ExtResource("2_7vsnu")]
 

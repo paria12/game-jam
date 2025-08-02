@@ -23,7 +23,8 @@ enum Platform_Type{
 }
 
 func _ready() -> void:
-	place_player(Vector2(1000, 0))
+	var instance_player = player.instantiate();
+	place_element(instance_player, 1000, 0)
 	xPos = 0;
 	yPos = 0;
 	var size = place_victory_room(Vector2(xPos, yPos))
@@ -50,6 +51,7 @@ func _ready() -> void:
 				xPos += size.x
 	size = place_rocher_room(Vector2(xPos, yPos))
 	xPos += size.x
+	instance_player.get_node("Camera2D").limit_right = xPos + instance_player.get_node("Camera2D").limit_left -100
 	
 func place_victory_room(pos):
 	var instance = victory_platform.instantiate();
@@ -59,9 +61,6 @@ func place_victory_room(pos):
 	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
 	return size;
 	
-func place_player(pos):
-	var instance_player = player.instantiate();
-	place_element(instance_player, pos.x, pos.y)
 	
 func place_rocher_room(pos):
 	var instance = rocher_platform.instantiate();
