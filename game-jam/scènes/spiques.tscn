@@ -8,7 +8,7 @@
 size = Vector2(168, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phcm2"]
-size = Vector2(140, 52)
+size = Vector2(134, 44)
 
 [node name="spiques" type="StaticBody2D"]
 position = Vector2(50, -50)
@@ -28,7 +28,7 @@ texture = ExtResource("2_h4hrm")
 
 [node name="CollisionShape2D" parent="KillZone" index="0"]
 modulate = Color(0, 0.576471, 0.576471, 1)
-position = Vector2(34, -31)
+position = Vector2(33, -27)
 shape = SubResource("RectangleShape2D_phcm2")
 
 [editable path="KillZone"]
