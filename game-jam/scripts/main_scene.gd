@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var height_ground_roof = 820.0
+@export var minimum_number_room = 10;
 
 var player = preload("res://scènes/player.tscn")
 var victory_platform = preload("res://scènes/win_platform.tscn")
@@ -14,6 +15,7 @@ var rocher_platform = preload("res://scènes/platform_with_rocher.tscn")
 var xPos  = 0;
 var yPos = 0;
 
+
 enum Platform_Type{
 	PLATFORM = 0,
 	SPIKES_PLATFORM = 1,
@@ -22,6 +24,29 @@ enum Platform_Type{
 	ARROW_PLATFORM = 4
 }
 
+var rooms_weight = { Platform_Type.PLATFORM: 5, Platform_Type.SPIKES_PLATFORM: 15,
+Platform_Type.PRESSURE_SPIKES_PLATFORM: 15, Platform_Type.HOLE_PLATFORM:15,
+Platform_Type.ARROW_PLATFORM:10 }
+
+func place_random_room(room, size):
+	match room:
+		Platform_Type.SPIKES_PLATFORM:
+			size = place_spikes_room(Vector2(xPos, yPos))
+			xPos += size.x
+		Platform_Type.PLATFORM:
+			size = place_room(Vector2(xPos, yPos))
+			xPos += size.x
+		Platform_Type.PRESSURE_SPIKES_PLATFORM:
+			size = place_pressure_spikes_room(Vector2(xPos, yPos))
+			xPos += size.x
+		Platform_Type.HOLE_PLATFORM:
+			size = place_hole_platform(Vector2(xPos, yPos))
+			xPos += size.x
+		Platform_Type.ARROW_PLATFORM:
+			size = place_arrow_platform(Vector2(xPos, yPos))
+			xPos += size.x
+	return size
+	
 func _ready() -> void:
 	var instance_player = player.instantiate();
 	place_element(instance_player, 1000, 0)
@@ -29,26 +54,21 @@ func _ready() -> void:
 	yPos = 0;
 	var size = place_victory_room(Vector2(xPos, yPos))
 	xPos += size.x
-	var number = randi_range(0,5)
-	for i in range(5):
-		var random_value = randi_range(0,Platform_Type.size()-1)
-		#match random_value:
-		match 2:
-			Platform_Type.SPIKES_PLATFORM:
-				size = place_spikes_room(Vector2(xPos, yPos))
-				xPos += size.x
-			Platform_Type.PLATFORM:
-				size = place_room(Vector2(xPos, yPos))
-				xPos += size.x
-			Platform_Type.PRESSURE_SPIKES_PLATFORM:
-				size = place_pressure_spikes_room(Vector2(xPos, yPos))
-				xPos += size.x
-			Platform_Type.HOLE_PLATFORM:
-				size = place_hole_platform(Vector2(xPos, yPos))
-				xPos += size.x
-			Platform_Type.ARROW_PLATFORM:
-				size = place_arrow_platform(Vector2(xPos, yPos))
-				xPos += size.x
+	
+	for i in range(minimum_number_room):
+		var sum_of_weight = 0;
+		for room in rooms_weight:
+			sum_of_weight += rooms_weight[room]
+			
+		var random_value = randi_range(0,sum_of_weight)
+		var found = false;
+		for room in rooms_weight:
+			if (!found):
+				if(random_value <= rooms_weight[room]):
+					size = place_random_room(room, size)
+					found = true;
+				random_value -= rooms_weight[room];
+			
 	size = place_rocher_room(Vector2(xPos, yPos))
 	xPos += size.x
 	instance_player.get_node("Camera2D").limit_right = xPos + instance_player.get_node("Camera2D").limit_left -100
