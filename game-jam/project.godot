@@ -68,6 +68,7 @@ throw_shoes={
 2d_physics/layer_5="rock"
 2d_physics/layer_6="rock_room"
 2d_physics/layer_7="win_room"
+2d_physics/layer_8="ruby"
 
 [rendering]
 

@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://cyogr8um5jbcc"]
 
 [ext_resource type="PackedScene" uid="uid://hoidkrvs2de1" path="res://scènes/rocher.tscn" id="1_7wcs8"]
-[ext_resource type="PackedScene" uid="uid://cfiulnqtqsc65" path="res://scènes/background_platform.tscn" id="2_3oxm8"]
+[ext_resource type="PackedScene" uid="uid://bbm8esmcri1q3" path="res://scènes/background_end_platform.tscn" id="2_7wcs8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spsfv"]
-size = Vector2(208, 259)
+size = Vector2(129.5, 123.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7wcs8"]
 size = Vector2(146.5, 755.5)
@@ -21,15 +21,16 @@ collision_layer = 32
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1005, -129.5)
+position = Vector2(999.25, -386.75)
 shape = SubResource("RectangleShape2D_spsfv")
-
-[node name="background_platform" parent="." instance=ExtResource("2_3oxm8")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(1784, -503)
 shape = SubResource("RectangleShape2D_7wcs8")
+
+[node name="background_end_platform" parent="." instance=ExtResource("2_7wcs8")]
+show_behind_parent = true
 
 [connection signal="body_entered" from="Area2D" to="rocher" method="_on_area_2d_body_entered"]

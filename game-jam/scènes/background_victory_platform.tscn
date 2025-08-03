@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3ujv8kk4agxd"]
+[gd_scene load_steps=4 format=3 uid="uid://b3ujv8kk4agxd"]
 
+[ext_resource type="Script" uid="uid://djn0d4fxew7g" path="res://scènes/background_victory_platform.gd" id="1_jf21q"]
 [ext_resource type="PackedScene" uid="uid://dk3bh88ec5qsh" path="res://scènes/platform.tscn" id="1_nu80g"]
 [ext_resource type="Texture2D" uid="uid://o5vxf1cagyx0" path="res://ressources/Exit.png" id="2_jf21q"]
 
 [node name="background_victory_platform" type="Node2D"]
+script = ExtResource("1_jf21q")
 
 [node name="Platform" parent="." instance=ExtResource("1_nu80g")]
 show_behind_parent = false

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var base_speed = 400
+@export var base_speed = 460
 @export var incremente_value = 5
 @export var coef_offscreen = 2.2;
 var speed = base_speed
