@@ -48,6 +48,8 @@ var last_crouch_played_frame = -1;
 var crouch_index = 0;
 var crouch_animations = ["S0_crouch", "S1_crouch", "S2_crouch"]
 
+var was_jumping = false
+
 func _ready() -> void:
 	crouching.hide();
 	standing.show();
@@ -115,6 +117,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				animation.play(shoes_prefix+"default")
 	else:
+		was_jumping = true
 		if(velocity.y < 0.0):
 			animation.play(shoes_prefix+"jump")
 		else: 
@@ -130,12 +133,16 @@ func _physics_process(delta: float) -> void:
 			velocity.y = jump_velocity
 			jump_timer += delta
 	else:
+		$jump.play()
 		if (jump_timer < long_jump_duration ):
 			jump_timer = long_jump_duration
 		if (ground_timer < cayote_time):
 			jump_timer = 0.0
 			jump_velocity = 0.0
 		if (is_on_floor()):
+			if was_jumping:
+				was_jumping = false
+				$fall.play()
 			ground_timer = 0.0
 
 	if (!is_on_floor()):
