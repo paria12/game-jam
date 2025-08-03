@@ -127,13 +127,14 @@ func _physics_process(delta: float) -> void:
 		stand()
 		jump_velocity = - jump - abs(horizontal_direction / 3)
 		ground_timer = cayote_time
+		if(!was_jumping):
+			$jump.play()
 		
 	if (Input.is_action_pressed("jump")):
 		if (jump_timer < long_jump_duration ):
 			velocity.y = jump_velocity
 			jump_timer += delta
 	else:
-		$jump.play()
 		if (jump_timer < long_jump_duration ):
 			jump_timer = long_jump_duration
 		if (ground_timer < cayote_time):
