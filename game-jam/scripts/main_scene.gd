@@ -12,11 +12,10 @@ var spikes_platform = preload("res://scènes/spikes_platform.tscn")
 var pressure_spikes_platform = preload("res://scènes/pressure_spikes_platform.tscn")
 var arrow_platform = preload("res://scènes/platform_with_arrow.tscn")
 var rocher_platform = preload("res://scènes/platform_with_rocher.tscn")
-var xPos  = 0;
-var yPos = 0;
+var current_position = Vector2(0, 0)
 
 
-enum Platform_Type{
+enum rooms_IDs{
 	PLATFORM = 0,
 	SPIKES_PLATFORM = 1,
 	PRESSURE_SPIKES_PLATFORM = 2,
@@ -24,114 +23,54 @@ enum Platform_Type{
 	ARROW_PLATFORM = 4
 }
 
-var rooms_weight = { Platform_Type.PLATFORM: 5, Platform_Type.SPIKES_PLATFORM: 15,
-Platform_Type.PRESSURE_SPIKES_PLATFORM: 15, Platform_Type.HOLE_PLATFORM:15,
-Platform_Type.ARROW_PLATFORM:10 }
+var rooms_weight = { 
+	rooms_IDs.PLATFORM: 5, 
+	rooms_IDs.SPIKES_PLATFORM: 15,
+	rooms_IDs.PRESSURE_SPIKES_PLATFORM: 15, 
+	rooms_IDs.HOLE_PLATFORM:15,
+	rooms_IDs.ARROW_PLATFORM:10 
+}
 
-func place_random_room(room, size):
-	match room:
-		Platform_Type.SPIKES_PLATFORM:
-			size = place_spikes_room(Vector2(xPos, yPos))
-			xPos += size.x
-		Platform_Type.PLATFORM:
-			size = place_room(Vector2(xPos, yPos))
-			xPos += size.x
-		Platform_Type.PRESSURE_SPIKES_PLATFORM:
-			size = place_pressure_spikes_room(Vector2(xPos, yPos))
-			xPos += size.x
-		Platform_Type.HOLE_PLATFORM:
-			size = place_hole_platform(Vector2(xPos, yPos))
-			xPos += size.x
-		Platform_Type.ARROW_PLATFORM:
-			size = place_arrow_platform(Vector2(xPos, yPos))
-			xPos += size.x
-	return size
+var rooms_scenes = { 
+	rooms_IDs.PLATFORM: background_platform, 
+	rooms_IDs.SPIKES_PLATFORM: spikes_platform,
+	rooms_IDs.PRESSURE_SPIKES_PLATFORM: pressure_spikes_platform, 
+	rooms_IDs.HOLE_PLATFORM: background_platform_with_platform_hole,
+	rooms_IDs.ARROW_PLATFORM: arrow_platform 
+}
 	
 func _ready() -> void:
+	current_position = Vector2(0, 0)
+	place_room(victory_platform)
 	var instance_player = player.instantiate();
-	place_element(instance_player, 1000, 0)
-	xPos = 0;
-	yPos = 0;
-	var size = place_victory_room(Vector2(xPos, yPos))
-	xPos += size.x
-	
+	place_element(instance_player, current_position.x/2, 0)
 	for i in range(minimum_number_room):
+		place_random_room()
+	place_room(rocher_platform)
+	instance_player.get_node("Camera2D").limit_right = current_position.x + instance_player.get_node("Camera2D").limit_left -100
+	get_node("Sprite2D").size.x = current_position.x + instance_player.get_node("Camera2D").limit_left
+	
+func place_random_room() -> void:
 		var sum_of_weight = 0;
 		for room in rooms_weight:
 			sum_of_weight += rooms_weight[room]
-			
 		var random_value = randi_range(0,sum_of_weight)
-		var found = false;
-		for room in rooms_weight:
-			if (!found):
-				if(random_value <= rooms_weight[room]):
-					size = place_random_room(room, size)
-					found = true;
-				random_value -= rooms_weight[room];
-			
-	size = place_rocher_room(Vector2(xPos, yPos))
-	xPos += size.x
-	instance_player.get_node("Camera2D").limit_right = xPos + instance_player.get_node("Camera2D").limit_left -100
-	get_node("Sprite2D").size.x = xPos + 700
+		for room_type in rooms_weight:
+			if(random_value <= rooms_weight[room_type]):
+				place_room(rooms_scenes[room_type])
+				return
+			random_value -= rooms_weight[room_type];
 	
-func place_victory_room(pos):
-	var instance = victory_platform.instantiate();
+	
+func place_room(platform_type) -> void:
+	var instance = platform_type.instantiate();
 	var instance2 = platform.instantiate()
 	var size = instance2.get_size();
-	place_element(instance, pos.x, pos.y + size.y/2)
-	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
-	return size;
-	
-	
-func place_rocher_room(pos):
-	var instance = rocher_platform.instantiate();
-	var instance2 = platform.instantiate()
-	var size = instance2.get_size();
-	place_element(instance, pos.x, pos.y + size.y/2)
-	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
-	return size;
+	place_element(instance, current_position.x, current_position.y + size.y/2)
+	place_element(instance2, current_position.x, current_position.y - height_ground_roof + size.y/2)
+	current_position.x += size.x
 
-func place_arrow_platform(pos):
-	var instance = arrow_platform.instantiate();
-	var instance2 = platform.instantiate()
-	var size = instance2.get_size();
-	place_element(instance, pos.x, pos.y + size.y/2)
-	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
-	return size;
-
-func place_hole_platform(pos):
-	var instance = background_platform_with_platform_hole.instantiate();
-	var instance2 = platform.instantiate()
-	var size = instance2.get_size();
-	place_element(instance, pos.x, pos.y + size.y/2)
-	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
-	return size;
-
-func place_pressure_spikes_room(pos):
-	var instance = pressure_spikes_platform.instantiate();
-	var instance2 = platform.instantiate()
-	var size = instance2.get_size();
-	place_element(instance, pos.x, pos.y + size.y/2)
-	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
-	return size;
-	
-func place_spikes_room(pos):
-	var instance = spikes_platform.instantiate();
-	var instance2 = platform.instantiate()
-	var size = instance2.get_size();
-	place_element(instance, pos.x, pos.y + size.y/2)
-	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
-	return size;
-	
-func place_room(pos):
-	var instance = background_platform.instantiate();
-	var instance2 = platform.instantiate()
-	var size = instance.get_size();
-	place_element(instance, pos.x, pos.y + size.y/2)
-	place_element(instance2, pos.x, pos.y - height_ground_roof + size.y/2)
-	return size;
-
-func place_element(instance, xpos, ypos):
+func place_element(instance, xpos, ypos) -> void:
 	instance.position.x = xpos
 	instance.position.y = ypos
 	add_child(instance)
