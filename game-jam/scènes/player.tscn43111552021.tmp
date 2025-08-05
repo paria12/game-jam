@@ -275,7 +275,6 @@ collision_layer = 2
 collision_mask = 33
 script = ExtResource("1_onrkg")
 cayote_time = 0.25
-pitch_range = 0.2
 
 [node name="walk1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_3xgc4")

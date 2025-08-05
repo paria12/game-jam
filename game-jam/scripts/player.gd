@@ -4,8 +4,10 @@ extends CharacterBody2D
 @export var gravity  = 40
 @export var jump = 750
 @export var running_coef = 2.0
+@export var crouch_coeff = 0.5
 @export var long_jump_duration = 0.25
 @export var cayote_time:float = 0.5
+@export var shoes_available = 2
 @export var shoes_limit = 3
 @export var walk_sounds_frames = [1, 3]
 @export var run_sounds_frames = [0, 1]
@@ -18,7 +20,6 @@ extends CharacterBody2D
 @onready var camera = $Camera2D
 
 var shoes = preload("res://scènes/shoes.tscn")
-var shoes_available = 2
 var speed = based_speed
 var normal_scale = 0.0;
 var divided_scale = 0;
@@ -48,7 +49,7 @@ var last_crouch_played_frame = -1;
 var crouch_index = 0;
 var crouch_animations = ["S0_crouch", "S1_crouch", "S2_crouch"]
 
-var was_jumping = false
+var jump_sound_played = false
 
 func _ready() -> void:
 	crouching.hide();
@@ -64,45 +65,48 @@ func _input(_event: InputEvent) -> void:
 		throw_shoes()
 
 func _physics_process(delta: float) -> void:
-	
 	if(self.position.y >= death_position.y):
 		die();
-	
 	var horizontal_direction = Input.get_axis("move_left","move_right")
+	play_sounds();
+	play_animations(horizontal_direction);
+	manage_movements(delta, horizontal_direction);
 	
+func play_sounds():
+	var returned_walk_played_frame = play_steps_sound(walk_animations, walk_sounds_frames, walks_sounds, walk_index, last_walked_played_frame);	
+	if(returned_walk_played_frame[0] != -1):
+		last_walked_played_frame = returned_walk_played_frame[0]
+	walk_index = returned_walk_played_frame[1]	
+	var returned_run_played_frame = play_steps_sound(run_animations, run_sounds_frames, runs_sounds, run_index, last_run_played_frame);
+	if(returned_run_played_frame[0] != -1):
+		last_run_played_frame = returned_run_played_frame[0]
+	run_index = returned_run_played_frame[1]
+	var returned_crouch_played_frame = play_steps_sound(crouch_animations, crouch_sounds_frames, crouch_sounds, crouch_index, last_crouch_played_frame);
+	if(returned_crouch_played_frame[0] != -1):
+		last_crouch_played_frame = returned_crouch_played_frame[0]
+	crouch_index = returned_crouch_played_frame[1]
+	if is_on_floor():
+		if jump_sound_played:
+			jump_sound_played = false
+			play_with_random_pitch($fall)
+	else:
+		if(!jump_sound_played):
+			play_with_random_pitch($jump)
+			jump_sound_played = true
+
+func play_animations(horizontal_direction):
 	if(horizontal_direction == 1.0):
 		animation.flip_h = false;
 		last_direction = horizontal_direction
 	elif(horizontal_direction == -1.0):
 		animation.flip_h = true
 		last_direction = horizontal_direction
-
-	var returned_walk_played_frame = play_steps_sound(walk_animations, walk_sounds_frames, walks_sounds, walk_index, last_walked_played_frame);	
-	
-	if(returned_walk_played_frame[0] != -1):
-		last_walked_played_frame = returned_walk_played_frame[0]
-				
-	walk_index = returned_walk_played_frame[1]	
-	
-	var returned_run_played_frame = play_steps_sound(run_animations, run_sounds_frames, runs_sounds, run_index, last_run_played_frame);
-	if(returned_run_played_frame[0] != -1):
-		last_run_played_frame = returned_run_played_frame[0]
-				
-	run_index = returned_run_played_frame[1]
-	
-	var returned_crouch_played_frame = play_steps_sound(crouch_animations, crouch_sounds_frames, crouch_sounds, crouch_index, last_crouch_played_frame);
-	if(returned_crouch_played_frame[0] != -1):
-		last_crouch_played_frame = returned_crouch_played_frame[0]
-				
-	crouch_index = returned_crouch_played_frame[1]
-	
 	if(shoes_available >= 2):
 		shoes_prefix = "S2_"
 	elif(shoes_available == 1):
 		shoes_prefix = "S1_"
 	else:
 		shoes_prefix = "S0_"
-	
 	if(is_on_floor()):
 		if(abs(velocity.x) >= 0.0 && abs(velocity.x) <= 0.5):
 			if(Input.is_action_pressed("crouch")):
@@ -117,35 +121,23 @@ func _physics_process(delta: float) -> void:
 			else:
 				animation.play(shoes_prefix+"default")
 	else:
-		was_jumping = true
 		if(velocity.y < 0.0):
 			animation.play(shoes_prefix+"jump")
 		else: 
 			animation.play(shoes_prefix+"fall")
-	
-	if (Input.is_action_just_pressed("jump")):
-		stand()
-		jump_velocity = - jump - abs(horizontal_direction / 3)
-		ground_timer = cayote_time
-		if(!was_jumping):
-			$jump.play()
-		
+			
+func manage_movements(delta, horizontal_direction):
 	if (Input.is_action_pressed("jump")):
+		if ground_timer < cayote_time:
+			stand()
+			jump_velocity = - jump - abs(horizontal_direction / 3)
+			ground_timer = cayote_time
+			jump_timer = 0.0
 		if (jump_timer < long_jump_duration ):
 			velocity.y = jump_velocity
 			jump_timer += delta
 	else:
-		if (jump_timer < long_jump_duration ):
-			jump_timer = long_jump_duration
-		if (ground_timer < cayote_time):
-			jump_timer = 0.0
-			jump_velocity = 0.0
-		if (is_on_floor()):
-			if was_jumping:
-				was_jumping = false
-				$fall.play()
-			ground_timer = 0.0
-
+		jump_timer = long_jump_duration
 	if (!is_on_floor()):
 		velocity.y += gravity
 		ground_timer += delta
@@ -153,21 +145,15 @@ func _physics_process(delta: float) -> void:
 		if (Input.is_action_just_pressed("crouch")):
 			velocity.y += gravity * 11 
 	else:
-		# regarder sur youtube comment réaliser l'accroupissement
-		# regarder comment éviter qu'il reste accroupit lors du saut
+		ground_timer = 0.0
 		if(Input.is_action_pressed("crouch")):
 			crouch()
 		else:
 			stand()
-	if (!Input.is_action_just_pressed("crouch")):
-		if (!Input.is_action_pressed("run")):
-			velocity.x = (velocity.x +(speed * horizontal_direction)) / 2
-		else : 
-			velocity.x = (velocity.x +(speed * horizontal_direction * running_coef)) / 2
-	else :
-		velocity.x = (velocity.x +(speed * horizontal_direction)) / 2
-		
-	
+	var added_velocity = (speed * horizontal_direction)
+	if Input.is_action_pressed("run"):
+		added_velocity = added_velocity * (running_coef)
+	velocity.x = (velocity.x + added_velocity) / 2
 	move_and_slide()
 
 func play_steps_sound(animations, sounds_frames, sounds, index, last_played_frame):
@@ -175,16 +161,17 @@ func play_steps_sound(animations, sounds_frames, sounds, index, last_played_fram
 	var new_index = index;
 	if(animations.has($AnimatedSprite2D.get_animation())):
 		if($AnimatedSprite2D.frame != last_played_frame && sounds_frames.has($AnimatedSprite2D.frame)):
-			var current_sound = get_node(sounds[index]);
-			current_sound.pitch_scale = 1 - pitch_range + randi_range(0,pitch_range * 2)
-			current_sound.play();
+			play_with_random_pitch(get_node(sounds[index]))
 			if(index < sounds.size()-1):
 				new_index += 1
 			else : 
 				new_index = 0
 			new_frame = $AnimatedSprite2D.frame
 	return [new_frame, new_index];
-
+	
+func play_with_random_pitch(played_sound):
+	played_sound.pitch_scale = 1 - pitch_range + randf_range(0,pitch_range * 2)
+	played_sound.play();
 	
 func die():
 	get_node("../GameOver").game_over()
@@ -194,7 +181,7 @@ func win():
 		get_node("../Victory").victory()
 
 func crouch():
-	speed = based_speed / 2.0
+	speed = based_speed * crouch_coeff
 	standing.hide();
 	standing.disabled = true;
 	crouching.disabled = false;
@@ -219,8 +206,6 @@ func throw_shoes():
 		shoe_instance.global_position = $Marker2D.global_position
 		shoe_instance.throw(last_direction, velocity)
 		shoes_available -= 1;
-	else:
-		print("You don't have any shoes !")
 
 func camera_shake():
 	camera.one_shot = true;
