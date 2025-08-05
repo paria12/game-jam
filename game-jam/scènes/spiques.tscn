@@ -1,26 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtfn7ih8pjllt"]
+[gd_scene load_steps=6 format=3 uid="uid://dtfn7ih8pjllt"]
 
 [ext_resource type="Script" uid="uid://bbdx1ylc1lqv3" path="res://scripts/spiques.gd" id="1_ongw6"]
 [ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="2_es5v7"]
 [ext_resource type="Texture2D" uid="uid://cvo8yfux56agg" path="res://ressources/Spirke.png" id="2_h4hrm"]
 [ext_resource type="AudioStream" uid="uid://dwjbp3k8m4ryd" path="res://ressources/Sounds/spiques.mp3" id="4_h4hrm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_es5v7"]
-size = Vector2(168, 79)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phcm2"]
-size = Vector2(134, 44)
+size = Vector2(132, 44)
 
 [node name="spiques" type="StaticBody2D"]
 position = Vector2(50, -50)
 script = ExtResource("1_ongw6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(34, 10.5)
-shape = SubResource("RectangleShape2D_es5v7")
-disabled = true
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-36, -47, -50, 50, 117, 50, 102, -47)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
 position = Vector2(33.5, -3.5)
 scale = Vector2(0.726087, 0.690789)
 texture = ExtResource("2_h4hrm")
@@ -29,7 +25,7 @@ texture = ExtResource("2_h4hrm")
 
 [node name="CollisionShape2D" parent="KillZone" index="0"]
 modulate = Color(0, 0.576471, 0.576471, 1)
-position = Vector2(33, -27)
+position = Vector2(34, -27)
 shape = SubResource("RectangleShape2D_phcm2")
 
 [node name="spiques_sound" type="AudioStreamPlayer2D" parent="."]

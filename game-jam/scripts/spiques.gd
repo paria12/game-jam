@@ -6,7 +6,7 @@ func _ready():
 	inactive();
 	
 func inactive():
-	$CollisionShape2D.set_deferred("disabled", true)
+	$CollisionPolygon2D.set_deferred("disabled", true)
 	self.visible = false;
 	$KillZone.inactive()
 	$KillZone.destroy_shoes = true;
@@ -15,7 +15,7 @@ func activate():
 	if(!has_been_played):
 		$spiques_sound.play();
 		has_been_played = true
-	$CollisionShape2D.set_deferred("disabled", false)
+	$CollisionPolygon2D.set_deferred("disabled", false)
 	self.visible = true
 	$KillZone.activate();
 	$KillZone.destroy_shoes = true
