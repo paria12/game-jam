@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dc3gllywmedyk" path="res://scripts/main_scene.gd" id="1_lw4b2"]
 [ext_resource type="Script" uid="uid://ccg0p6iku24re" path="res://scripts/game_over.gd" id="2_eyxnp"]
 [ext_resource type="Script" uid="uid://bvtkneg1ctdb6" path="res://scripts/victory.gd" id="4_eyxnp"]
-[ext_resource type="PackedScene" uid="uid://b70615m7kdwvk" path="res://scènes/skybox.tscn" id="4_ls2c7"]
+[ext_resource type="PackedScene" path="res://scènes/skybox.tscn" id="4_ls2c7"]
 
 [node name="main_scene" type="Node2D"]
 position = Vector2(642, 802)

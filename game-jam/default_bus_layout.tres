@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://dkta81bkyhdxs"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://brstepd3ilkbg"]
 
 [sub_resource type="AudioEffectEQ" id="AudioEffectEQ_j3pel"]
 resource_name = "EQ"
@@ -17,6 +17,9 @@ wet = 0.35
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_n8wo2"]
 resource_name = "Reverb"
+room_size = 0.37
+damping = 0.52
+hipass = 0.34
 
 [resource]
 bus/0/volume_db = -0.328256

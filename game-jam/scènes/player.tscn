@@ -310,22 +310,29 @@ bus = &"reverb"
 
 [node name="walk2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("38_ssi63")
+bus = &"reverb"
 
 [node name="run1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("39_g65kj")
+bus = &"reverb"
 
 [node name="run2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("40_14tvc")
+bus = &"reverb"
 
 [node name="crouch1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("41_a3iw4")
+bus = &"reverb"
 
 [node name="crouch2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("42_8hujx")
+bus = &"reverb"
 
 [node name="jump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("43_g65kj")
 volume_db = 10.0
+bus = &"reverb"
 
 [node name="fall" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("43_ssi63")
+bus = &"reverb"
