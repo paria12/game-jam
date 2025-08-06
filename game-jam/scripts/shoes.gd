@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+@export var coeff_throw_shoes_x = 900;
+@export var coeff_throw_shoes_y = -500
 var grabable = false;
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -14,7 +16,8 @@ func throw(direction, velocity_player) -> void:
 		$Sprite2D.flip_h = false
 	else:
 		$Sprite2D.flip_h = true
-	apply_impulse(Vector2(500* direction + velocity_player.x,20 + velocity_player.y), Vector2(400*direction, 200))
+	# le dernier vecteur n'a pas l'air utile dans notre cas, valeur de base Vector2(400*direction, 200)
+	apply_impulse(Vector2(coeff_throw_shoes_x * direction + velocity_player.x, coeff_throw_shoes_y - velocity_player.y), Vector2(0,0))
 	linear_damp = 1.0
 	rotation_degrees = randf_range(0,360)
 	
