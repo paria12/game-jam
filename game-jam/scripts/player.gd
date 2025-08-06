@@ -13,6 +13,7 @@ extends CharacterBody2D
 @export var run_sounds_frames = [0, 1]
 @export var crouch_sounds_frames = [0, 1]
 @export var pitch_range = 0.3
+@export var max_landing_sound_at_speed = 1000
 
 @onready var animation = $AnimatedSprite2D
 @onready var standing = $Standing
@@ -38,18 +39,16 @@ var walks_sounds = ["walk1", "walk2"]
 var last_walked_played_frame = -1; 
 var walk_animations = ["S0_default", "S1_default", "S2_default"]
 var walk_index = 0;
-
 var runs_sounds = ["run1", "run2"]
 var last_run_played_frame = -1;
 var run_index = 0;
 var run_animations = ["S0_run", "S1_run", "S2_run"]
-
 var crouch_sounds = ["crouch1", "crouch2"]
 var last_crouch_played_frame = -1;
 var crouch_index = 0;
 var crouch_animations = ["S0_crouch", "S1_crouch", "S2_crouch"]
-
 var jump_sound_played = false
+var fall_velocity = 0
 
 func _ready() -> void:
 	crouching.hide();
@@ -71,6 +70,7 @@ func _physics_process(delta: float) -> void:
 	play_sounds();
 	play_animations(horizontal_direction);
 	manage_movements(delta, horizontal_direction);
+	print(velocity.y)
 	
 func play_sounds():
 	var returned_walk_played_frame = play_steps_sound(walk_animations, walk_sounds_frames, walks_sounds, walk_index, last_walked_played_frame);	
@@ -88,11 +88,17 @@ func play_sounds():
 	if is_on_floor():
 		if jump_sound_played:
 			jump_sound_played = false
+			var volume = fall_velocity / max_landing_sound_at_speed
+			if volume > 1:
+				volume =  1
+			$fall.volume_linear = volume
+			fall_velocity = 0
 			play_with_random_pitch($fall)
 	else:
-		if(!jump_sound_played):
+		if (!jump_sound_played):
 			play_with_random_pitch($jump)
 			jump_sound_played = true
+		fall_velocity = velocity.y
 
 func play_animations(horizontal_direction):
 	if(horizontal_direction == 1.0):
