@@ -2,6 +2,8 @@ extends Node2D
 
 @export var height_ground_roof = 820.0
 @export var minimum_number_room = 10;
+@export var victory_fade_start = 1000
+@export var victory_fade_end = 100
 
 var player = preload("res://scènes/player.tscn")
 var victory_platform = preload("res://scènes/win_platform.tscn")
@@ -13,6 +15,7 @@ var pressure_spikes_platform = preload("res://scènes/pressure_spikes_platform.t
 var arrow_platform = preload("res://scènes/platform_with_arrow.tscn")
 var rocher_platform = preload("res://scènes/platform_with_rocher.tscn")
 var current_position = Vector2(0, 0)
+var instance_player;
 
 
 enum rooms_IDs{
@@ -42,13 +45,22 @@ var rooms_scenes = {
 func _ready() -> void:
 	current_position = Vector2(0, 0)
 	place_room(victory_platform)
-	var instance_player = player.instantiate();
+	instance_player = player.instantiate();
 	place_element(instance_player, current_position.x/2, 0)
 	for i in range(minimum_number_room):
 		place_random_room()
 	place_room(rocher_platform)
 	instance_player.get_node("Camera2D").limit_right = current_position.x + instance_player.get_node("Camera2D").limit_left -100
 	get_node("Sprite2D").size.x = current_position.x + instance_player.get_node("Camera2D").limit_left
+	
+func _process(delta):
+	if !instance_player.has_touched_rock_room:
+		return
+	if (instance_player.position.x < victory_fade_start):
+		var fade_length = victory_fade_start - victory_fade_end
+		$Victory.set_transparency((fade_length-(instance_player.position.x-victory_fade_end))/fade_length)
+	else: 
+		$Victory.set_transparency(0)
 	
 func place_random_room() -> void:
 		var sum_of_weight = 0;

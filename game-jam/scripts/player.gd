@@ -143,7 +143,6 @@ func manage_movements(delta, horizontal_direction):
 		if (!is_on_floor()):
 			velocity.y += gravity
 		else:
-			print(velocity)
 			if -nearly_zero <= velocity.x && velocity.x <= nearly_zero:
 				velocity.x = 0
 			else:
