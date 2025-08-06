@@ -70,7 +70,6 @@ func _physics_process(delta: float) -> void:
 	play_sounds();
 	play_animations(horizontal_direction);
 	manage_movements(delta, horizontal_direction);
-	print(velocity.y)
 	
 func play_sounds():
 	var returned_walk_played_frame = play_steps_sound(walk_animations, walk_sounds_frames, walks_sounds, walk_index, last_walked_played_frame);	

@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b0d04xbm0inqv" path="res://ressources/Animations/Full/Walk_0002.png" id="6_dxdnu"]
 [ext_resource type="Texture2D" uid="uid://buh51w0f1mm7b" path="res://ressources/Animations/Full/Walk_0003.png" id="7_a5441"]
 [ext_resource type="Texture2D" uid="uid://bv3en3osekmhb" path="res://ressources/Animations/Full/Jump_0001.png" id="8_uyiaa"]
-[ext_resource type="Texture2D" uid="uid://csixiqp7vdtjl" path="res://ressources/Animations/Full/idle_base.png" id="9_tdctf"]
+[ext_resource type="Texture2D" uid="uid://dgjm77rejwqjr" path="res://ressources/Animations/Full/idle.png" id="10_g65kj"]
 [ext_resource type="Texture2D" uid="uid://bb8g2iypboc67" path="res://ressources/Animations/Full/Jump_0000.png" id="10_jowp8"]
 [ext_resource type="Texture2D" uid="uid://hr7ro53asudn" path="res://ressources/Animations/Full/Run_0000.png" id="11_alnwd"]
 [ext_resource type="Texture2D" uid="uid://c4d1j1r5uerdd" path="res://ressources/Animations/Full/Run_0001.png" id="12_cf65b"]
@@ -22,8 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://dt53pgw4pq20k" path="res://ressources/Animation_Shoes/S1/WalkS1_0003.png" id="18_qf8e7"]
 [ext_resource type="Texture2D" uid="uid://b86rjisv82jgp" path="res://ressources/Animation_Shoes/S1/JumpS1_0001.png" id="19_04mna"]
 [ext_resource type="Texture2D" uid="uid://dr0v7xk11so2r" path="res://ressources/Animation_Shoes/S1/JumpS1_0000.png" id="20_e08rc"]
-[ext_resource type="Texture2D" uid="uid://dc125rdvewdra" path="res://ressources/Animation_Shoes/idle_baseS1.png" id="20_nxcxb"]
 [ext_resource type="Texture2D" uid="uid://b2thqbnkkiuar" path="res://ressources/Animation_Shoes/S1/RunS1_0000.png" id="21_1iohi"]
+[ext_resource type="Texture2D" uid="uid://d2dw0odd1jicc" path="res://ressources/Animation_Shoes/idleS1.png" id="21_14tvc"]
 [ext_resource type="Texture2D" uid="uid://c0aaboqsapgiq" path="res://ressources/Animation_Shoes/S1/RunS1_0001.png" id="22_3xgc4"]
 [ext_resource type="Texture2D" uid="uid://7imsoik7h74k" path="res://ressources/Animation_Shoes/S1/CrouchS2_0000.png" id="23_ssi63"]
 [ext_resource type="Texture2D" uid="uid://deu4mh7edg0hy" path="res://ressources/Animation_Shoes/S1/CrouchS2_0002.png" id="24_g65kj"]
@@ -33,8 +33,8 @@
 [ext_resource type="Texture2D" uid="uid://vnr2ng5srkgm" path="res://ressources/Animation_Shoes/S1/WalkS2_0003.png" id="28_mtb7m"]
 [ext_resource type="Texture2D" uid="uid://cimffm5hp3t2y" path="res://ressources/Animation_Shoes/S1/JumpS2_0004.png" id="29_546ji"]
 [ext_resource type="Texture2D" uid="uid://bbfp5yqakx5m2" path="res://ressources/Animation_Shoes/S1/JumpS2_0000.png" id="30_fo6dd"]
-[ext_resource type="Texture2D" uid="uid://buk5jsl5hw6mg" path="res://ressources/Animation_Shoes/idle_baseS2.png" id="31_0d0nr"]
 [ext_resource type="Texture2D" uid="uid://cdycg0f22hn1o" path="res://ressources/Animation_Shoes/S1/RunS2_0000.png" id="31_cmo3l"]
+[ext_resource type="Texture2D" uid="uid://dh81gyln73alg" path="res://ressources/Animation_Shoes/idleS2.png" id="32_a3iw4"]
 [ext_resource type="Texture2D" uid="uid://vjehk1diuo5l" path="res://ressources/Animation_Shoes/S1/RunS2_0001.png" id="32_neffy"]
 [ext_resource type="AudioStream" uid="uid://nswar5edkfhj" path="res://ressources/Sounds/ambient.wav" id="36_0d0nr"]
 [ext_resource type="AudioStream" uid="uid://cfsaj7p65mfo5" path="res://ressources/Sounds/step_2.wav" id="38_ssi63"]
@@ -85,7 +85,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_tdctf")
+"texture": ExtResource("10_g65kj")
 }],
 "loop": true,
 "name": &"S0_idle",
@@ -156,7 +156,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("20_nxcxb")
+"texture": ExtResource("21_14tvc")
 }],
 "loop": true,
 "name": &"S1_idle",
@@ -227,7 +227,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("31_0d0nr")
+"texture": ExtResource("32_a3iw4")
 }],
 "loop": true,
 "name": &"S2_idle",
@@ -283,7 +283,7 @@ stream = ExtResource("2_3xgc4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(35, -137)
 sprite_frames = SubResource("SpriteFrames_ou4hl")
-animation = &"S2_idle_crouch"
+animation = &"S2_idle"
 
 [node name="Standing" type="CollisionShape2D" parent="."]
 position = Vector2(23, -132)
