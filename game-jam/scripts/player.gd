@@ -14,6 +14,8 @@ extends CharacterBody2D
 @export var crouch_sounds_frames = [0, 1]
 @export var pitch_range = 0.3
 @export var max_landing_sound_at_speed = 1000
+@export var nearly_zero = 0.05;
+@export var death_slow_coeff = 1.2
 
 @onready var animation = $AnimatedSprite2D
 @onready var standing = $Standing
@@ -49,6 +51,7 @@ var crouch_index = 0;
 var crouch_animations = ["S0_crouch", "S1_crouch", "S2_crouch"]
 var jump_sound_played = false
 var fall_velocity = 0
+var dead = false
 
 func _ready() -> void:
 	crouching.hide();
@@ -70,6 +73,7 @@ func _physics_process(delta: float) -> void:
 	play_sounds();
 	play_animations(horizontal_direction);
 	manage_movements(delta, horizontal_direction);
+	move_and_slide();
 	
 func play_sounds():
 	var returned_walk_played_frame = play_steps_sound(walk_animations, walk_sounds_frames, walks_sounds, walk_index, last_walked_played_frame);	
@@ -100,18 +104,21 @@ func play_sounds():
 		fall_velocity = velocity.y
 
 func play_animations(horizontal_direction):
-	if(horizontal_direction == 1.0):
-		animation.flip_h = false;
-		last_direction = horizontal_direction
-	elif(horizontal_direction == -1.0):
-		animation.flip_h = true
-		last_direction = horizontal_direction
 	if(shoes_available >= 2):
 		shoes_prefix = "S2_"
 	elif(shoes_available == 1):
 		shoes_prefix = "S1_"
 	else:
 		shoes_prefix = "S0_"
+	if dead:
+		animation.play(shoes_prefix + "death")
+		return
+	if(horizontal_direction == 1.0):
+		animation.flip_h = false;
+		last_direction = horizontal_direction
+	elif(horizontal_direction == -1.0):
+		animation.flip_h = true
+		last_direction = horizontal_direction
 	if(is_on_floor()):
 		if(abs(velocity.x) >= 0.0 && abs(velocity.x) <= 0.5):
 			if(Input.is_action_pressed("crouch")):
@@ -132,6 +139,28 @@ func play_animations(horizontal_direction):
 			animation.play(shoes_prefix+"fall")
 			
 func manage_movements(delta, horizontal_direction):
+	if dead:
+		if (!is_on_floor()):
+			velocity.y += gravity
+		else:
+			print(velocity)
+			if -nearly_zero <= velocity.x && velocity.x <= nearly_zero:
+				velocity.x = 0
+			else:
+				velocity.x = velocity.x/death_slow_coeff
+		return
+	if (!is_on_floor()):
+		velocity.y += gravity
+		ground_timer += delta
+		stand();
+		if (Input.is_action_pressed("crouch")):
+			velocity.y += gravity * 1.75
+	else:
+		ground_timer = 0.0
+		if(Input.is_action_pressed("crouch")):
+			crouch()
+		else:
+			stand()
 	if (Input.is_action_pressed("jump")):
 		if ground_timer < cayote_time:
 			stand()
@@ -143,23 +172,10 @@ func manage_movements(delta, horizontal_direction):
 			jump_timer += delta
 	else:
 		jump_timer = long_jump_duration
-	if (!is_on_floor()):
-		velocity.y += gravity
-		ground_timer += delta
-		stand();
-		if (Input.is_action_just_pressed("crouch")):
-			velocity.y += gravity * 11 
-	else:
-		ground_timer = 0.0
-		if(Input.is_action_pressed("crouch")):
-			crouch()
-		else:
-			stand()
 	var added_velocity = (speed * horizontal_direction)
 	if Input.is_action_pressed("run"):
 		added_velocity = added_velocity * (running_coef)
 	velocity.x = (velocity.x + added_velocity) / 2
-	move_and_slide()
 
 func play_steps_sound(animations, sounds_frames, sounds, index, last_played_frame):
 	var new_frame = -1;
@@ -179,6 +195,8 @@ func play_with_random_pitch(played_sound):
 	played_sound.play();
 	
 func die():
+	dead = true
+	crouch();
 	get_node("../GameOver").game_over()
 	
 func win():

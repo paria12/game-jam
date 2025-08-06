@@ -1,10 +1,11 @@
-[gd_scene load_steps=48 format=3 uid="uid://cely711l01bmm"]
+[gd_scene load_steps=51 format=3 uid="uid://cely711l01bmm"]
 
 [ext_resource type="Script" uid="uid://cioca66e5eyev" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="AudioStream" uid="uid://bp8rd8elf6po8" path="res://ressources/Sounds/step1.wav" id="2_3xgc4"]
 [ext_resource type="Texture2D" uid="uid://b3rrkfkwjbray" path="res://ressources/Animations/Full/Crouch_0001.png" id="2_tq5ee"]
 [ext_resource type="Texture2D" uid="uid://d1x2hsh7bm63c" path="res://ressources/Animations/Full/Crouch_0002.png" id="3_mk5t5"]
 [ext_resource type="Texture2D" uid="uid://b3t66ufv0m1co" path="res://ressources/Animations/Full/Walk_0000.png" id="4_kgfef"]
+[ext_resource type="Texture2D" uid="uid://cotingobx8vim" path="res://ressources/Animations/Full/death.png" id="5_8hujx"]
 [ext_resource type="Texture2D" uid="uid://boirhkr45v1gd" path="res://ressources/Animations/Full/Walk_0001.png" id="5_gvwmi"]
 [ext_resource type="Texture2D" uid="uid://b0d04xbm0inqv" path="res://ressources/Animations/Full/Walk_0002.png" id="6_dxdnu"]
 [ext_resource type="Texture2D" uid="uid://buh51w0f1mm7b" path="res://ressources/Animations/Full/Walk_0003.png" id="7_a5441"]
@@ -18,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://ci5ghe8s83x13" path="res://ressources/Animation_Shoes/S1/CrouchS1_0001.png" id="14_sjcek"]
 [ext_resource type="Texture2D" uid="uid://tjcw6agon572" path="res://ressources/Animation_Shoes/S1/WalkS1_0000.png" id="15_nxcxb"]
 [ext_resource type="Texture2D" uid="uid://m8a2mdxc6s1d" path="res://ressources/Animation_Shoes/S1/WalkS1_0001.png" id="16_0d0nr"]
+[ext_resource type="Texture2D" uid="uid://d2wbplpoay0ff" path="res://ressources/Animation_Shoes/deathS1.png" id="17_mtb7m"]
 [ext_resource type="Texture2D" uid="uid://bs8opm22p2rlo" path="res://ressources/Animation_Shoes/S1/WalkS1_0002.png" id="17_nw77l"]
 [ext_resource type="Texture2D" uid="uid://dt53pgw4pq20k" path="res://ressources/Animation_Shoes/S1/WalkS1_0003.png" id="18_qf8e7"]
 [ext_resource type="Texture2D" uid="uid://b86rjisv82jgp" path="res://ressources/Animation_Shoes/S1/JumpS1_0001.png" id="19_04mna"]
@@ -32,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://ewysxcdrqqw" path="res://ressources/Animation_Shoes/S1/WalkS2_0002.png" id="27_8hujx"]
 [ext_resource type="Texture2D" uid="uid://vnr2ng5srkgm" path="res://ressources/Animation_Shoes/S1/WalkS2_0003.png" id="28_mtb7m"]
 [ext_resource type="Texture2D" uid="uid://cimffm5hp3t2y" path="res://ressources/Animation_Shoes/S1/JumpS2_0004.png" id="29_546ji"]
+[ext_resource type="Texture2D" uid="uid://b34e5ffs7l8rf" path="res://ressources/Animation_Shoes/deathS2.png" id="29_fo6dd"]
 [ext_resource type="Texture2D" uid="uid://bbfp5yqakx5m2" path="res://ressources/Animation_Shoes/S1/JumpS2_0000.png" id="30_fo6dd"]
 [ext_resource type="Texture2D" uid="uid://cdycg0f22hn1o" path="res://ressources/Animation_Shoes/S1/RunS2_0000.png" id="31_cmo3l"]
 [ext_resource type="Texture2D" uid="uid://dh81gyln73alg" path="res://ressources/Animation_Shoes/idleS2.png" id="32_a3iw4"]
@@ -56,6 +59,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"S0_crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_8hujx")
+}],
+"loop": true,
+"name": &"S0_death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -131,6 +142,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("17_mtb7m")
+}],
+"loop": true,
+"name": &"S1_death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("15_nxcxb")
 }, {
 "duration": 1.0,
@@ -198,6 +217,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"S2_crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_fo6dd")
+}],
+"loop": true,
+"name": &"S2_death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -283,7 +310,7 @@ stream = ExtResource("2_3xgc4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(35, -137)
 sprite_frames = SubResource("SpriteFrames_ou4hl")
-animation = &"S2_idle"
+animation = &"S2_death"
 
 [node name="Standing" type="CollisionShape2D" parent="."]
 position = Vector2(23, -132)
