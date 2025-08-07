@@ -21,7 +21,9 @@ func game_over():
 	var index = 1;
 	if(scores.size() != 0):
 		for i in scores:
-			score += "Meilleur score "+ str(index) + " : "+ str(i) +"\n";
+			var minutes = int(i / 60.0)
+			var seconds = i - minutes * 60.0
+			score += "Meilleur score "+ str(index) + " : "+ str('%02d:%02d' % [minutes,seconds]) +"\n";
 			index += 1
 	else:
 		score = "Aucun meilleur score !"

@@ -13,6 +13,4 @@ func _on_timer_timeout() -> void:
 	$Label.add_theme_font_size_override("font", 16);
 	
 func get_time():
-	var minutes = int(time_passed / 60.0)
-	var seconds = time_passed - minutes * 60.0
-	return '%02d:%02d' % [minutes,seconds];
+	return time_passed;

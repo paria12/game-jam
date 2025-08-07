@@ -6,4 +6,5 @@ func set_score(score):
 	all_score_player.append(score);
 	
 func get_score():
-	return all_score_player
+	all_score_player.sort();
+	return all_score_player;
