@@ -52,8 +52,10 @@ var crouch_animations = ["S0_crouch", "S1_crouch", "S2_crouch"]
 var jump_sound_played = false
 var fall_velocity = 0
 var dead = false
+var has_win = false;
 
 func _ready() -> void:
+	has_win = false;
 	crouching.hide();
 	standing.show();
 	normal_scale = animation.scale;
@@ -200,7 +202,8 @@ func die():
 	
 func win():
 	if(has_touched_rock_room):
-		get_node("../Victory").victory()
+		has_win = true;
+		get_node("../Victory").victory(get_node("../canvas_timer/node_time").get_time())
 
 func crouch():
 	speed = based_speed * crouch_coeff

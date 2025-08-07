@@ -16,4 +16,15 @@ func _on_retry_pressed() -> void:
 	
 func game_over():
 	self.show()
+	var score = "";
+	var scores = Global.get_score()
+	var index = 1;
+	if(scores.size() != 0):
+		for i in scores:
+			score += "Meilleur score "+ str(index) + " : "+ str(i) +"\n";
+			index += 1
+	else:
+		score = "Aucun meilleur score !"
+	$score.text = score;
+	$score.show();
 	up = true

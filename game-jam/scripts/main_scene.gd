@@ -17,7 +17,6 @@ var rocher_platform = preload("res://scènes/platform_with_rocher.tscn")
 var current_position = Vector2(0, 0)
 var instance_player;
 
-
 enum rooms_IDs{
 	PLATFORM = 0,
 	SPIKES_PLATFORM = 1,
@@ -52,6 +51,7 @@ func _ready() -> void:
 	place_room(rocher_platform)
 	instance_player.get_node("Camera2D").limit_right = current_position.x + instance_player.get_node("Camera2D").limit_left -100
 	get_node("Sprite2D").size.x = current_position.x + instance_player.get_node("Camera2D").limit_left
+	$canvas_timer/node_time._ready()
 	
 func _process(delta):
 	if !instance_player.has_touched_rock_room:
