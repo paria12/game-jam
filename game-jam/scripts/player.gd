@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var jump = 750
 @export var running_coef = 2.0
 @export var crouch_coeff = 0.5
+@export var acceleration = 40
 @export var long_jump_duration = 0.25
 @export var cayote_time:float = 0.5
 @export var shoes_available = 2
@@ -24,6 +25,7 @@ extends CharacterBody2D
 
 var shoes = preload("res://scènes/shoes.tscn")
 var speed = based_speed
+var added_velocity = 0;
 var normal_scale = 0.0;
 var divided_scale = 0;
 var normal_position = 0
@@ -122,7 +124,7 @@ func play_animations(horizontal_direction):
 		animation.flip_h = true
 		last_direction = horizontal_direction
 	if(is_on_floor()):
-		if(abs(velocity.x) >= 0.0 && abs(velocity.x) <= 0.5):
+		if(abs(horizontal_direction) == 0.0 && abs(horizontal_direction) <= nearly_zero):
 			if(Input.is_action_pressed("crouch")):
 				animation.play(shoes_prefix+"idle_crouch")
 			else:
@@ -168,9 +170,18 @@ func manage_movements(delta, horizontal_direction):
 			crouch()
 		else:
 			stand()
-	var added_velocity = (speed * horizontal_direction)
+	var target_velocity = (speed * horizontal_direction)
 	if Input.is_action_pressed("run"):
-		added_velocity = added_velocity * (running_coef)
+		target_velocity = target_velocity * (running_coef)
+	if (added_velocity != target_velocity):
+		var difference = abs(added_velocity - target_velocity)
+		var change_coeff = acceleration * running_coef
+		if (difference < change_coeff):
+			change_coeff = difference
+		if (added_velocity < target_velocity):
+			added_velocity += change_coeff
+		else :
+			added_velocity -= change_coeff
 	velocity.x = (velocity.x + added_velocity) / 2
 	
 func be_limp():
