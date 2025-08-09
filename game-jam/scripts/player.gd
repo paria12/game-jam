@@ -142,26 +142,8 @@ func play_animations(horizontal_direction):
 			
 func manage_movements(delta, horizontal_direction):
 	if dead:
-		if (!is_on_floor()):
-			velocity.y += gravity
-		else:
-			if -nearly_zero <= velocity.x && velocity.x <= nearly_zero:
-				velocity.x = 0
-			else:
-				velocity.x = velocity.x/death_slow_coeff
+		be_limp()
 		return
-	if (!is_on_floor()):
-		velocity.y += gravity
-		ground_timer += delta
-		stand();
-		if (Input.is_action_pressed("crouch")):
-			velocity.y += gravity * 1.75
-	else:
-		ground_timer = 0.0
-		if(Input.is_action_pressed("crouch")):
-			crouch()
-		else:
-			stand()
 	if (Input.is_action_pressed("jump")):
 		if ground_timer < cayote_time:
 			stand()
@@ -173,10 +155,32 @@ func manage_movements(delta, horizontal_direction):
 			jump_timer += delta
 	else:
 		jump_timer = long_jump_duration
+	if (!is_on_floor()):
+		ground_timer += delta
+		stand();
+		if (jump_timer >= long_jump_duration) && (Input.is_action_pressed("crouch")):
+			velocity.y += gravity * 2.75
+		else:
+			velocity.y += gravity
+	else:
+		ground_timer = 0.0
+		if(Input.is_action_pressed("crouch")):
+			crouch()
+		else:
+			stand()
 	var added_velocity = (speed * horizontal_direction)
 	if Input.is_action_pressed("run"):
 		added_velocity = added_velocity * (running_coef)
 	velocity.x = (velocity.x + added_velocity) / 2
+	
+func be_limp():
+	if (!is_on_floor()):
+		velocity.y += gravity
+	else:
+		if -nearly_zero <= velocity.x && velocity.x <= nearly_zero:
+			velocity.x = 0
+		else:
+			velocity.x = velocity.x/death_slow_coeff
 
 func play_steps_sound(animations, sounds_frames, sounds, index, last_played_frame):
 	var new_frame = -1;
