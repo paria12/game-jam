@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var based_speed = 400
+@export var base_speed = 400
 @export var gravity  = 40
 @export var jump = 750
 @export var running_coef = 2.0
@@ -24,7 +24,7 @@ extends CharacterBody2D
 @onready var camera = $Camera2D
 
 var shoes = preload("res://scènes/shoes.tscn")
-var speed = based_speed
+var speed = base_speed
 var added_velocity = 0;
 var normal_scale = 0.0;
 var divided_scale = 0;
@@ -124,11 +124,14 @@ func play_animations(horizontal_direction):
 		animation.flip_h = true
 		last_direction = horizontal_direction
 	if(is_on_floor()):
-		if(abs(horizontal_direction) == 0.0 && abs(horizontal_direction) <= nearly_zero):
-			if(Input.is_action_pressed("crouch")):
-				animation.play(shoes_prefix+"idle_crouch")
+		if(abs(horizontal_direction) <= 0.0):
+			if (abs(velocity.x) <= base_speed):
+				if(Input.is_action_pressed("crouch")):
+					animation.play(shoes_prefix+"idle_crouch")
+				else:
+					animation.play(shoes_prefix+"idle")
 			else:
-				animation.play(shoes_prefix+"idle")
+				animation.play(shoes_prefix+"stop")
 		else:
 			if(Input.is_action_pressed("crouch")):
 				animation.play(shoes_prefix+"crouch")
@@ -221,14 +224,14 @@ func win():
 		get_node("../Victory").victory(get_node("../canvas_timer/node_time").get_time())
 
 func crouch():
-	speed = based_speed * crouch_coeff
+	speed = base_speed * crouch_coeff
 	standing.hide();
 	standing.disabled = true;
 	crouching.disabled = false;
 	crouching.show()
 	
 func stand():
-	speed = based_speed
+	speed = base_speed
 	crouching.hide();
 	crouching.disabled = true
 	standing.disabled = false;

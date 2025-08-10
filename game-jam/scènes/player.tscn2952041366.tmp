@@ -132,7 +132,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_cf65b")
+"texture": ExtResource("2_tq5ee")
 }],
 "loop": true,
 "name": &"S0_stop",
@@ -219,7 +219,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("22_3xgc4")
+"texture": ExtResource("2_tq5ee")
 }],
 "loop": true,
 "name": &"S1_stop",
@@ -306,7 +306,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("32_neffy")
+"texture": ExtResource("2_tq5ee")
 }],
 "loop": true,
 "name": &"S2_stop",
