@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var running_coef = 2.0
 @export var crouch_coeff = 0.5
 @export var acceleration = 40
+@export var air_acceleration_coeff = 0.5
 @export var long_jump_duration = 0.25
 @export var cayote_time:float = 0.5
 @export var shoes_available = 2
@@ -15,8 +16,10 @@ extends CharacterBody2D
 @export var crouch_sounds_frames = [0, 1]
 @export var pitch_range = 0.3
 @export var max_landing_sound_at_speed = 1000
+@export var max_landing_scale_at_speed = 2000
 @export var nearly_zero = 0.05;
 @export var death_slow_coeff = 1.2
+@export var step_particles: PackedScene
 
 @onready var animation = $AnimatedSprite2D
 @onready var standing = $Standing
@@ -55,6 +58,9 @@ var jump_sound_played = false
 var fall_velocity = 0
 var dead = false
 var has_win = false;
+var last_frame_played = 0;
+var landing_particles_emitted = true
+var character_sprite_center_offset = Vector2(20.0, 0.0)
 
 func _ready() -> void:
 	has_win = false;
@@ -76,6 +82,7 @@ func _physics_process(delta: float) -> void:
 	var horizontal_direction = Input.get_axis("move_left","move_right")
 	play_sounds();
 	play_animations(horizontal_direction);
+	manage_particles(horizontal_direction);
 	manage_movements(delta, horizontal_direction);
 	move_and_slide();
 	
@@ -85,8 +92,7 @@ func play_sounds():
 		last_walked_played_frame = returned_walk_played_frame[0]
 	walk_index = returned_walk_played_frame[1]	
 	var returned_run_played_frame = play_steps_sound(run_animations, run_sounds_frames, runs_sounds, run_index, last_run_played_frame);
-	if(returned_run_played_frame[0] != -1):
-		last_run_played_frame = returned_run_played_frame[0]
+	# Not changing last run played frame yet because we need it for particles
 	run_index = returned_run_played_frame[1]
 	var returned_crouch_played_frame = play_steps_sound(crouch_animations, crouch_sounds_frames, crouch_sounds, crouch_index, last_crouch_played_frame);
 	if(returned_crouch_played_frame[0] != -1):
@@ -99,7 +105,6 @@ func play_sounds():
 			if volume > 1:
 				volume =  1
 			$fall.volume_linear = volume
-			fall_velocity = 0
 			play_with_random_pitch($fall)
 	else:
 		if (!jump_sound_played):
@@ -145,6 +150,41 @@ func play_animations(horizontal_direction):
 		else: 
 			animation.play(shoes_prefix+"fall")
 			
+func manage_particles(horizontal_direction):
+	var run_offset = Vector2(150*horizontal_direction, 0.0)
+	if(run_animations.has($AnimatedSprite2D.get_animation())):
+		if run_sounds_frames.has($AnimatedSprite2D.frame) && ($AnimatedSprite2D.frame != last_run_played_frame):
+				var step_particle_instance = create_particle(horizontal_direction)
+				step_particle_instance.global_position += run_offset
+				last_run_played_frame = $AnimatedSprite2D.frame
+	else:
+		last_run_played_frame = -1
+	if is_on_floor():
+		if !landing_particles_emitted:
+			var step_particle_instance = create_particle(horizontal_direction)
+			var scale;
+			if (fall_velocity > max_landing_scale_at_speed):
+				scale = 1
+			else:
+				scale = (fall_velocity / max_landing_scale_at_speed) 
+			scale *= 3
+			step_particle_instance.scale_amount_min *= (scale)
+			step_particle_instance.scale_amount_max *= (scale)
+			landing_particles_emitted = true
+			fall_velocity = 0
+	else:
+		landing_particles_emitted = false
+	if ["S0_stop", "S1_stop", "S2_stop"].has($AnimatedSprite2D.get_animation()):
+		var step_particle_instance = create_particle(horizontal_direction)
+		step_particle_instance.global_position += run_offset
+
+func create_particle(horizontal_direction):
+	var step_particle_instance = step_particles.instantiate()
+	get_parent().add_child(step_particle_instance)
+	step_particle_instance.global_position = global_position + character_sprite_center_offset
+	step_particle_instance.direction.x = -horizontal_direction * 0.6
+	return step_particle_instance
+
 func manage_movements(delta, horizontal_direction):
 	if dead:
 		be_limp()
@@ -179,6 +219,8 @@ func manage_movements(delta, horizontal_direction):
 	if (added_velocity != target_velocity):
 		var difference = abs(added_velocity - target_velocity)
 		var change_coeff = acceleration * running_coef
+		if !is_on_floor():
+			change_coeff *= air_acceleration_coeff
 		if (difference < change_coeff):
 			change_coeff = difference
 		if (added_velocity < target_velocity):
