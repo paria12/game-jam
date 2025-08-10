@@ -249,3 +249,7 @@ func throw_shoes():
 
 func camera_shake():
 	camera.one_shot = true;
+
+func play_chase_music():
+	$chaseMusic.play()
+	

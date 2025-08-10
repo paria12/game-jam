@@ -27,10 +27,12 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	body.has_touched_rock_room = true;
-	body.camera_shake();
-	$rolling_sound.play();
-	activated = true;
+	if !activated:
+		body.has_touched_rock_room = true;
+		body.camera_shake();
+		body.play_chase_music();
+		$rolling_sound.play();
+		activated = true;
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	on_screen = true;

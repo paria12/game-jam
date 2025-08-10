@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cely711l01bmm"]
+[gd_scene load_steps=52 format=3 uid="uid://cely711l01bmm"]
 
 [ext_resource type="Script" uid="uid://cioca66e5eyev" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="AudioStream" uid="uid://bp8rd8elf6po8" path="res://ressources/Sounds/step1.wav" id="2_3xgc4"]
@@ -47,6 +47,7 @@
 [ext_resource type="AudioStream" uid="uid://c1n57j6bywmv4" path="res://ressources/Sounds/crouch2.wav" id="42_8hujx"]
 [ext_resource type="AudioStream" uid="uid://dsjysc6ydf6ms" path="res://ressources/Sounds/jump.wav" id="43_g65kj"]
 [ext_resource type="AudioStream" uid="uid://cqg4iigpghlna" path="res://ressources/Sounds/land.mp3" id="43_ssi63"]
+[ext_resource type="AudioStream" uid="uid://do0fgxmoi6fam" path="res://ressources/Sounds/Rock_chase.mp3" id="48_mtb7m"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ou4hl"]
 animations = [{
@@ -366,3 +367,7 @@ bus = &"reverb"
 [node name="fall" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("43_ssi63")
 bus = &"reverb"
+
+[node name="chaseMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("48_mtb7m")
+parameters/looping = true
