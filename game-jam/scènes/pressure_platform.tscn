@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://csoclvf0ed700"]
+
+[ext_resource type="Script" uid="uid://dmborpx0bk7qk" path="res://scripts/pressure_platform.gd" id="1_jsr73"]
+[ext_resource type="PackedScene" uid="uid://dk408jenfive1" path="res://scènes/pressure_plate.tscn" id="1_sl25w"]
+[ext_resource type="PackedScene" uid="uid://cfiulnqtqsc65" path="res://scènes/background_platform.tscn" id="2_jsr73"]
+
+[node name="pressure_platform" type="Node2D"]
+script = ExtResource("1_jsr73")
+
+[node name="pressure_plate" parent="." instance=ExtResource("1_sl25w")]
+position = Vector2(908, -128)
+
+[node name="background_platform" parent="." instance=ExtResource("2_jsr73")]

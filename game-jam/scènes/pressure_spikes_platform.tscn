@@ -1,17 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqgatqegles4l"]
+[gd_scene load_steps=4 format=3 uid="uid://dqgatqegles4l"]
 
 [ext_resource type="Script" uid="uid://c54vaamer1iid" path="res://scripts/pressure_spikes_platform.gd" id="1_e51d0"]
-[ext_resource type="PackedScene" uid="uid://dk408jenfive1" path="res://scènes/pressure_plate.tscn" id="2_0w8uv"]
+[ext_resource type="PackedScene" uid="uid://csoclvf0ed700" path="res://scènes/pressure_platform.tscn" id="2_r6puf"]
 [ext_resource type="PackedScene" uid="uid://dtfn7ih8pjllt" path="res://scènes/spiques.tscn" id="3_mflpc"]
-[ext_resource type="PackedScene" uid="uid://cfiulnqtqsc65" path="res://scènes/background_platform.tscn" id="4_2oima"]
 
 [node name="pressure_spikes_platform" type="Node2D"]
 show_behind_parent = true
 script = ExtResource("1_e51d0")
 
-[node name="pressure_plate" parent="." node_paths=PackedStringArray("trap") instance=ExtResource("2_0w8uv")]
-position = Vector2(912, -130)
-trap = NodePath("../spiques")
+[node name="pressure_platform" parent="." instance=ExtResource("2_r6puf")]
+
+[node name="pressure_plate" parent="pressure_platform" index="0" node_paths=PackedStringArray("trap")]
+trap = NodePath("../../spiques")
 
 [node name="spiques" parent="." instance=ExtResource("3_mflpc")]
 position = Vector2(1182, -178)
@@ -22,7 +22,6 @@ show_behind_parent = false
 [node name="CollisionShape2D" parent="spiques/KillZone" index="0"]
 position = Vector2(33, -27)
 
-[node name="background_platform" parent="." instance=ExtResource("4_2oima")]
-
+[editable path="pressure_platform"]
 [editable path="spiques"]
 [editable path="spiques/KillZone"]

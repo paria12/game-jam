@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm7rq0agmbgmk"]
+
+[ext_resource type="Script" uid="uid://cbawdqshnduou" path="res://scripts/pressure_arrow_platform.gd" id="1_dd15f"]
+[ext_resource type="PackedScene" uid="uid://csoclvf0ed700" path="res://scènes/pressure_platform.tscn" id="2_qcfbb"]
+[ext_resource type="PackedScene" uid="uid://bcrq5rygtfk3y" path="res://scènes/arrow.tscn" id="3_sidea"]
+
+[node name="pressure_arrow_platform" type="Node2D"]
+show_behind_parent = true
+script = ExtResource("1_dd15f")
+
+[node name="pressure_platform" parent="." instance=ExtResource("2_qcfbb")]
+
+[node name="pressure_plate" parent="pressure_platform" index="0" node_paths=PackedStringArray("trap")]
+trap = NodePath("../../arrow")
+
+[node name="arrow" parent="." instance=ExtResource("3_sidea")]
+position = Vector2(1927, -387)
+
+[editable path="pressure_platform"]
+[editable path="pressure_platform/pressure_plate"]
+[editable path="arrow"]
+[editable path="arrow/KillZone"]

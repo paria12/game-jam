@@ -1,7 +1,4 @@
 extends Node2D
-	
-func _ready() -> void:
-	$spiques.inactive();
-	
+
 func get_size():
 	return $pressure_platform.get_size();
