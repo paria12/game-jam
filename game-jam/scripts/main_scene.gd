@@ -15,6 +15,7 @@ var pressure_spikes_platform = preload("res://scènes/pressure_spikes_platform.t
 var arrow_platform = preload("res://scènes/platform_with_arrow.tscn")
 var rocher_platform = preload("res://scènes/platform_with_rocher.tscn")
 var pressure_arrow_platform = preload("res://scènes/pressure_arrow_platform.tscn")
+var pressure_dynamite_platform = preload("res://scènes/pressure_dynamite_platform.tscn")
 var current_position = Vector2(0, 0)
 var instance_player;
 
@@ -24,7 +25,8 @@ enum rooms_IDs{
 	PRESSURE_SPIKES_PLATFORM = 2,
 	HOLE_PLATFORM = 3,
 	ARROW_PLATFORM = 4, 
-	PRESSURE_ARROW_PLATFORM = 5
+	PRESSURE_ARROW_PLATFORM = 5,
+	PRESSURE_DYNAMITE_PLATFORM = 6
 }
 
 var rooms_weight = { 
@@ -33,7 +35,8 @@ var rooms_weight = {
 	rooms_IDs.PRESSURE_SPIKES_PLATFORM: 15, 
 	rooms_IDs.HOLE_PLATFORM:15,
 	rooms_IDs.ARROW_PLATFORM:10,
-	rooms_IDs.PRESSURE_ARROW_PLATFORM:10
+	rooms_IDs.PRESSURE_ARROW_PLATFORM:10, 
+	rooms_IDs.PRESSURE_DYNAMITE_PLATFORM:15
 }
 
 var rooms_scenes = { 
@@ -42,7 +45,8 @@ var rooms_scenes = {
 	rooms_IDs.PRESSURE_SPIKES_PLATFORM: pressure_spikes_platform, 
 	rooms_IDs.HOLE_PLATFORM: background_platform_with_platform_hole,
 	rooms_IDs.ARROW_PLATFORM: arrow_platform,
-	rooms_IDs.PRESSURE_ARROW_PLATFORM: pressure_arrow_platform
+	rooms_IDs.PRESSURE_ARROW_PLATFORM: pressure_arrow_platform,
+	rooms_IDs.PRESSURE_DYNAMITE_PLATFORM: pressure_dynamite_platform
 }
 	
 func _ready() -> void:

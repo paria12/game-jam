@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwy5alkn01kth"]
+
+[ext_resource type="Script" uid="uid://crk2mo1ktvfc1" path="res://scripts/dynamite.gd" id="1_m0ne2"]
+[ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="1_tckwu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m0ne2"]
+radius = 100.005
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yylwu"]
+radius = 100.08
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uttkx"]
+radius = 102.02
+
+[node name="Dynamite" type="RigidBody2D"]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("1_m0ne2")
+
+[node name="KillZone" parent="." instance=ExtResource("1_tckwu")]
+position = Vector2(-2, 1)
+
+[node name="CollisionShape2D" parent="KillZone" index="0"]
+position = Vector2(2, -1)
+shape = SubResource("CircleShape2D_m0ne2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yylwu")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 256
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -1)
+shape = SubResource("CircleShape2D_uttkx")
+
+[editable path="KillZone"]

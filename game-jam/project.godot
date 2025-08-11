@@ -82,6 +82,8 @@ play_again={
 2d_physics/layer_6="rock_room"
 2d_physics/layer_7="win_room"
 2d_physics/layer_8="ruby"
+2d_physics/layer_9="dynamite"
+2d_physics/layer_10="ground"
 
 [rendering]
 

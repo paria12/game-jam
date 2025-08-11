@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://cn2guinxvysa8"]
+
+[ext_resource type="Script" uid="uid://do2x7yafoyrld" path="res://scripts/dynamited_platform_background.gd" id="1_bdx82"]
+[ext_resource type="Script" uid="uid://be7wptw7vpocy" path="res://scripts/dynamited_platform.gd" id="2_ivdfg"]
+[ext_resource type="Texture2D" uid="uid://moivnwsayk5s" path="res://ressources/calque_definitif.png" id="3_il1vd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6mfq"]
+size = Vector2(220, 67.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_226du"]
+size = Vector2(895, 135)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3ynn"]
+size = Vector2(257, 135)
+
+[sub_resource type="QuadMesh" id="QuadMesh_fk113"]
+size = Vector2(1836, 135)
+
+[node name="dynamited_platform_background" type="Node2D"]
+script = ExtResource("1_bdx82")
+
+[node name="dynamited_platform" type="StaticBody2D" parent="."]
+script = ExtResource("2_ivdfg")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="dynamited_platform"]
+position = Vector2(1469, -34)
+shape = SubResource("RectangleShape2D_j6mfq")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="dynamited_platform"]
+position = Vector2(1005, -34)
+shape = SubResource("RectangleShape2D_j6mfq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dynamited_platform"]
+position = Vector2(447.5, -68)
+shape = SubResource("RectangleShape2D_226du")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="dynamited_platform"]
+position = Vector2(1707, -68)
+shape = SubResource("RectangleShape2D_t3ynn")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="dynamited_platform"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(918, -68)
+mesh = SubResource("QuadMesh_fk113")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(918, -495)
+texture = ExtResource("3_il1vd")

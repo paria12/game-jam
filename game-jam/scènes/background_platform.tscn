@@ -10,6 +10,7 @@ script = ExtResource("1_4yt2c")
 
 [node name="Platform" parent="." instance=ExtResource("2_hnluj")]
 show_behind_parent = false
+collision_layer = 513
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 show_behind_parent = true
