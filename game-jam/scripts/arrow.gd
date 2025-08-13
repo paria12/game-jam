@@ -4,12 +4,16 @@ var has_been_played = false;
 
 func _ready() -> void:
 	gravity_scale = 0.0
+	$CollisionShape2D.set_deferred("disabled", true)
+	$KillZone.inactive();
 	
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 	activate();
 	
 func activate():
 	if(!has_been_played):
+		$CollisionShape2D.set_deferred("disabled", false)
+		$KillZone.activate();
 		get_node("AudioStreamPlayer2D").play()
 		linear_velocity.x = -1500
 		has_been_played = true
