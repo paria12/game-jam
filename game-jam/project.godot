@@ -84,6 +84,7 @@ play_again={
 2d_physics/layer_8="ruby"
 2d_physics/layer_9="dynamite"
 2d_physics/layer_10="ground"
+2d_physics/layer_11="string"
 
 [rendering]
 

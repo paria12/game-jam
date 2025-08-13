@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmke07n3x1434"]
+
+[ext_resource type="PackedScene" uid="uid://bf6d8441kputg" path="res://scènes/background_platform_hole.tscn" id="1_hewiw"]
+[ext_resource type="PackedScene" uid="uid://bdcd0k6ancong" path="res://scènes/string.tscn" id="2_7r7mr"]
+
+[node name="platform_string_hole" type="Node2D"]
+show_behind_parent = true
+
+[node name="background_platform_hole" parent="." instance=ExtResource("1_hewiw")]
+
+[node name="platform1" parent="background_platform_hole/platform string" index="0"]
+position = Vector2(544, -68)
+
+[node name="string" parent="." node_paths=PackedStringArray("trap") instance=ExtResource("2_7r7mr")]
+position = Vector2(270, -147)
+trap = NodePath("../background_platform_hole/platform string")
+
+[connection signal="body_entered" from="background_platform_hole/crumbl ground/Area2D" to="string" method="_on_area_2d_body_entered"]
+
+[editable path="background_platform_hole"]
