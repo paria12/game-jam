@@ -20,6 +20,8 @@ trap = NodePath("../../Dynamite")
 [node name="Dynamite" parent="." instance=ExtResource("2_eqsep")]
 position = Vector2(1233, -1029)
 collision_layer = 257
+mass = 20.0
+gravity_scale = 2.5
 
 [node name="dynamite_detector" type="Area2D" parent="."]
 position = Vector2(1230, -92)
