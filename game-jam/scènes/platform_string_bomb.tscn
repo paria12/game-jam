@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2nsn745xyovy"]
+
+[ext_resource type="PackedScene" uid="uid://dj0dluucmj5ib" path="res://scènes/bomb.tscn" id="1_xsv0k"]
+[ext_resource type="PackedScene" uid="uid://bdcd0k6ancong" path="res://scènes/string.tscn" id="2_7qjmn"]
+[ext_resource type="PackedScene" uid="uid://cfiulnqtqsc65" path="res://scènes/background_platform.tscn" id="3_o00qi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1adf"]
+size = Vector2(1477, 44)
+
+[node name="platform_string_bomb" type="Node2D"]
+show_behind_parent = true
+
+[node name="bomb" parent="." instance=ExtResource("1_xsv0k")]
+position = Vector2(913, -1011)
+collision_layer = 2048
+collision_mask = 512
+
+[node name="string" parent="." node_paths=PackedStringArray("trap") instance=ExtResource("2_7qjmn")]
+position = Vector2(270, -147)
+trap = NodePath("../bomb")
+
+[node name="background_platform" parent="." instance=ExtResource("3_o00qi")]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(342, -129)
+collision_layer = 512
+collision_mask = 2048
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(728.5, -13)
+shape = SubResource("RectangleShape2D_h1adf")
+
+[connection signal="body_entered" from="Area2D" to="bomb" method="_on_area_2d_body_entered"]

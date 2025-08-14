@@ -17,6 +17,7 @@ var rocher_platform = preload("res://scènes/platform_with_rocher.tscn")
 var pressure_arrow_platform = preload("res://scènes/pressure_arrow_platform.tscn")
 var pressure_dynamite_platform = preload("res://scènes/pressure_dynamite_platform.tscn")
 var string_hole_platform = preload("res://scènes/platform_string_hole.tscn")
+var string_bomb_platform = preload("res://scènes/platform_string_bomb.tscn")
 var current_position = Vector2(0, 0)
 var instance_player;
 
@@ -28,7 +29,8 @@ enum rooms_IDs{
 	ARROW_PLATFORM = 4, 
 	PRESSURE_ARROW_PLATFORM = 5,
 	PRESSURE_DYNAMITE_PLATFORM = 6,
-	PLATFORM_STRING_HOLE = 7
+	PLATFORM_STRING_HOLE = 7,
+	PLATFORM_STRING_BOMB = 8
 }
 
 var rooms_weight = { 
@@ -39,7 +41,8 @@ var rooms_weight = {
 	rooms_IDs.ARROW_PLATFORM:10,
 	rooms_IDs.PRESSURE_ARROW_PLATFORM:10, 
 	rooms_IDs.PRESSURE_DYNAMITE_PLATFORM:15,
-	rooms_IDs.PLATFORM_STRING_HOLE:15
+	rooms_IDs.PLATFORM_STRING_HOLE:15,
+	rooms_IDs.PLATFORM_STRING_BOMB:15
 }
 
 var rooms_scenes = { 
@@ -50,7 +53,8 @@ var rooms_scenes = {
 	rooms_IDs.ARROW_PLATFORM: arrow_platform,
 	rooms_IDs.PRESSURE_ARROW_PLATFORM: pressure_arrow_platform,
 	rooms_IDs.PRESSURE_DYNAMITE_PLATFORM: pressure_dynamite_platform,
-	rooms_IDs.PLATFORM_STRING_HOLE: string_hole_platform
+	rooms_IDs.PLATFORM_STRING_HOLE: string_hole_platform,
+	rooms_IDs.PLATFORM_STRING_BOMB: string_bomb_platform
 }
 	
 func _ready() -> void:
@@ -65,7 +69,7 @@ func _ready() -> void:
 	get_node("Sprite2D").size.x = current_position.x + instance_player.get_node("Camera2D").limit_left
 	$canvas_timer/node_time._ready()
 	
-func _process(delta):
+func _process(_delta):
 	if !instance_player.has_touched_rock_room:
 		return
 	if (instance_player.position.x < victory_fade_start):

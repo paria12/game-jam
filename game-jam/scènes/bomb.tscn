@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj0dluucmj5ib"]
+
+[ext_resource type="Script" uid="uid://dpylwrlli1ikq" path="res://scripts/bomb.gd" id="1_lj80e"]
+[ext_resource type="PackedScene" uid="uid://3f20dihvofuc" path="res://scènes/kill_zone.tscn" id="2_c25lj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2iscb"]
+radius = 131.137
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tc7wr"]
+radius = 131.856
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lj80e"]
+radius = 137.004
+
+[node name="bomb" type="RigidBody2D"]
+script = ExtResource("1_lj80e")
+radius_explosion = 5.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2iscb")
+
+[node name="area bomb" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area bomb"]
+shape = SubResource("CircleShape2D_tc7wr")
+
+[node name="KillZone" parent="." instance=ExtResource("2_c25lj")]
+
+[node name="CollisionShape2D" parent="KillZone" index="0"]
+shape = SubResource("CircleShape2D_lj80e")
+
+[editable path="KillZone"]
